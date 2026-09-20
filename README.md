@@ -35,8 +35,10 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
     │   └── README.md                                     # Zero-daemon local code review, GBNF schema gating & diff linting
     ├── 07-agentic-observability-patterns/                # Case Study 7: Semantic Observability & Telemetry for Autonomous Agents
     │   └── README.md                                     # Hierarchical OTel GenAI span trees, state-delta ledgers & circuit breakers
-    └── 08-agentic-distributed-job-scheduler-mcp/         # Case Study 8: Distributed Job Scheduler via MCP, RAG & HITL
-        └── README.md                                     # Meta-MCP batch orchestration, SLM pre-hooks & state-mutating HITL gates
+    ├── 08-agentic-distributed-job-scheduler-mcp/         # Case Study 8: Distributed Job Scheduler via MCP, RAG & HITL
+    │   └── README.md                                     # Meta-MCP batch orchestration, SLM pre-hooks & state-mutating HITL gates
+    └── 09-matrix-reasoning-latent-agent-state/           # Case Study 9: Matrix-Based Agentic Reasoning & Continuous Latent States
+        └── README.md                                     # Replacing text scratchpads with adjacency matrix operations & GEMM planning
 ```
 
 ---
@@ -53,6 +55,7 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
 | **06** | [SLM-as-a-Judge via Git Pre-Hooks & llama-cli](case-studies/06-git-prehooks-slm-judge/README.md) | Local semantic code review via Git pre-commit hooks, zero-daemon llama-cli auto-bootstrapping, and GBNF JSON Schema enforcement | 💡 Conceptualized |
 | **07** | [Semantic Observability & Telemetry Patterns](case-studies/07-agentic-observability-patterns/README.md) | Cognitive loop tracing (OTel GenAI), event-sourced state-delta ledgers, budget circuit breakers, and async LLM-as-a-judge pipelines | 💡 Conceptualized |
 | **08** | [Distributed Job Scheduler via MCP & HITL](case-studies/08-agentic-distributed-job-scheduler-mcp/README.md) | Meta-MCP intelligent batch engine, asynchronous multi-hop RAG, edge SLM pre-hook sanitization, and HITL authorization gates | 💡 Conceptualized |
+| **09** | [Matrix-Based Agentic Reasoning](case-studies/09-matrix-reasoning-latent-agent-state/README.md) | Replacing discrete text scratchpads with continuous state matrices, causal adjacency tensors, and GPU GEMM reachability | 💡 Conceptualized |
 
 ---
 
