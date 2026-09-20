@@ -37,10 +37,10 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
 
 | # | Case Study | Core Opportunity & Pattern Focus | Status |
 |---|---|---|---|
-| **01** | [Agentic Evaluation & CI/CD Pattern](file:///c:/Users/preth/Documents/Agentic-AI-Case-studies/case-studies/01-agentic-evaluation-pattern/README.md) | LangSmith-based trajectory evaluation for tools & multi-agent systems, LLM-as-a-judge verification, CI/CD automated gates | 💡 Conceptualized |
-| **02** | [Context Compaction & RAG Memory Pattern](file:///c:/Users/preth/Documents/Agentic-AI-Case-studies/case-studies/02-context-compaction-rag-memory/README.md) | Solving context saturation in local LLMs (DeepSeek-R1:7B in LM Studio under 8k limit) via entity compaction, <think> pruning, and episodic RAG | 💡 Conceptualized |
-| **03** | [Google ADK to Local LLMs via OpenAI Wrappers](file:///c:/Users/preth/Documents/Agentic-AI-Case-studies/case-studies/03-google-adk-local-llm-wrapper/README.md) | Decoupling Google Agent Development Kit (ADK) from Vertex AI / GCP to run locally on Ollama/LM Studio using OpenAI-compatible adapters | 💡 Conceptualized |
-| **04** | [Resilient ReAct Production Architecture & Blueprint](file:///c:/Users/preth/Documents/Agentic-AI-Case-studies/case-studies/04-resilient-react-production-architecture/README.md) | Enterprise ReAct systems: trajectory fingerprinting for cycle detection, scratchpad distillation, Pydantic guardrails, and OpenTelemetry | 💡 Conceptualized |
+| **01** | [Agentic Evaluation & CI/CD Pattern](case-studies/01-agentic-evaluation-pattern/README.md) | LangSmith-based trajectory evaluation for tools & multi-agent systems, LLM-as-a-judge verification, CI/CD automated gates | 💡 Conceptualized |
+| **02** | [Context Compaction & RAG Memory Pattern](case-studies/02-context-compaction-rag-memory/README.md) | Solving context saturation in local LLMs (DeepSeek-R1:7B in LM Studio under 8k limit) via entity compaction, <think> pruning, and episodic RAG | 💡 Conceptualized |
+| **03** | [Google ADK to Local LLMs via OpenAI Wrappers](case-studies/03-google-adk-local-llm-wrapper/README.md) | Decoupling Google Agent Development Kit (ADK) from Vertex AI / GCP to run locally on Ollama/LM Studio using OpenAI-compatible adapters | 💡 Conceptualized |
+| **04** | [Resilient ReAct Production Architecture & Blueprint](case-studies/04-resilient-react-production-architecture/README.md) | Enterprise ReAct systems: trajectory fingerprinting for cycle detection, scratchpad distillation, Pydantic guardrails, and OpenTelemetry | 💡 Conceptualized |
 
 ---
 

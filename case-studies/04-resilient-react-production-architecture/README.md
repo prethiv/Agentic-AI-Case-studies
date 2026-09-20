@@ -358,7 +358,7 @@ flowchart LR
 2. **Golden Trajectory Benchmarking**:
    - Maintain a curated suite of end-to-end benchmark tasks.
    - Validate agent candidate versions against deterministic assertions (e.g., verifying final database state or exact API parameter matching) rather than non-deterministic semantic similarity.
-   - Establish automated pull request gates as formulated in [Case Study 01: Agentic Evaluation Pattern](file:///c:/Users/preth/Documents/Agentic-AI-Case-studies/case-studies/01-agentic-evaluation-pattern/README.md).
+   - Establish automated pull request gates as formulated in [Case Study 01: Agentic Evaluation Pattern](../01-agentic-evaluation-pattern/README.md).
 
 ---
 
@@ -378,6 +378,6 @@ flowchart LR
 
 ## 8. Related Case Studies & Architectural Synergy
 
-- [Case Study 01: Agentic Evaluation & CI/CD Integration Pattern](file:///c:/Users/preth/Documents/Agentic-AI-Case-studies/case-studies/01-agentic-evaluation-pattern/README.md) - Testing trajectory efficiency, tool call accuracy, and LLM-as-a-judge gates.
-- [Case Study 02: Context Compaction & RAG Memory Pattern](file:///c:/Users/preth/Documents/Agentic-AI-Case-studies/case-studies/02-context-compaction-rag-memory/README.md) - Pruning scratchpads and entity compaction for memory-constrained models.
-- [Case Study 03: Google ADK to Local LLMs via OpenAI Wrappers](file:///c:/Users/preth/Documents/Agentic-AI-Case-studies/case-studies/03-google-adk-local-llm-wrapper/README.md) - Decoupling orchestration frameworks from cloud-locked model backends.
+- [Case Study 01: Agentic Evaluation & CI/CD Integration Pattern](../01-agentic-evaluation-pattern/README.md) - Testing trajectory efficiency, tool call accuracy, and LLM-as-a-judge gates.
+- [Case Study 02: Context Compaction & RAG Memory Pattern](../02-context-compaction-rag-memory/README.md) - Pruning scratchpads and entity compaction for memory-constrained models.
+- [Case Study 03: Google ADK to Local LLMs via OpenAI Wrappers](../03-google-adk-local-llm-wrapper/README.md) - Decoupling orchestration frameworks from cloud-locked model backends.
