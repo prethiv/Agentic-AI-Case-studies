@@ -27,8 +27,10 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
     │   └── README.md                                     # Architectural blueprint for constrained local LLMs (8k limit)
     ├── 03-google-adk-local-llm-wrapper/                  # Case Study 3: Google ADK to Local LLM via OpenAI Wrappers
     │   └── README.md                                     # Decoupling ADK from Vertex/GCP using OpenAI-compatible wrappers
-    └── 04-resilient-react-production-architecture/       # Case Study 4: Resilient ReAct Production Architecture & Blueprint
-        └── README.md                                     # Enterprise ReAct loop engine, cycle detection & context control
+    ├── 04-resilient-react-production-architecture/       # Case Study 4: Resilient ReAct Production Architecture & Blueprint
+    │   └── README.md                                     # Enterprise ReAct loop engine, cycle detection & context control
+    └── 05-slm-edge-device-harnessing/                    # Case Study 5: Harnessing Small Language Models on Edge Devices
+        └── README.md                                     # On-device SLM execution harness, GBNF function calling & edge routing
 ```
 
 ---
@@ -41,6 +43,7 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
 | **02** | [Context Compaction & RAG Memory Pattern](case-studies/02-context-compaction-rag-memory/README.md) | Solving context saturation in local LLMs (DeepSeek-R1:7B in LM Studio under 8k limit) via entity compaction, <think> pruning, and episodic RAG | 💡 Conceptualized |
 | **03** | [Google ADK to Local LLMs via OpenAI Wrappers](case-studies/03-google-adk-local-llm-wrapper/README.md) | Decoupling Google Agent Development Kit (ADK) from Vertex AI / GCP to run locally on Ollama/LM Studio using OpenAI-compatible adapters | 💡 Conceptualized |
 | **04** | [Resilient ReAct Production Architecture & Blueprint](case-studies/04-resilient-react-production-architecture/README.md) | Enterprise ReAct systems: trajectory fingerprinting for cycle detection, scratchpad distillation, Pydantic guardrails, and OpenTelemetry | 💡 Conceptualized |
+| **05** | [Harnessing SLMs on Edge Devices](case-studies/05-slm-edge-device-harnessing/README.md) | On-device SLMs (Gemma 2B, Qwen 2.5 1.5B/3B, Llama 3.2 1B): GBNF-constrained function calling, edge semantic routing, and SBC/NPU optimization | 💡 Conceptualized |
 
 ---
 
