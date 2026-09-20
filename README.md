@@ -23,8 +23,10 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
 └── case-studies/
     ├── 01-agentic-evaluation-pattern/                    # Case Study 1: Agentic Evaluation Pattern
     │   └── README.md                                     # In-depth architectural brainstorm & pattern analysis
-    └── 02-context-compaction-rag-memory/                 # Case Study 2: Context Compaction & RAG Memory Pattern
-        └── README.md                                     # Architectural blueprint for constrained local LLMs (8k limit)
+    ├── 02-context-compaction-rag-memory/                 # Case Study 2: Context Compaction & RAG Memory Pattern
+    │   └── README.md                                     # Architectural blueprint for constrained local LLMs (8k limit)
+    └── 03-google-adk-local-llm-wrapper/                  # Case Study 3: Google ADK to Local LLM via OpenAI Wrappers
+        └── README.md                                     # Decoupling ADK from Vertex/GCP using OpenAI-compatible wrappers
 ```
 
 ---
@@ -35,6 +37,7 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
 |---|---|---|---|
 | **01** | [Agentic Evaluation & CI/CD Pattern](file:///c:/Users/preth/Documents/Agentic-AI-Case-studies/case-studies/01-agentic-evaluation-pattern/README.md) | LangSmith-based trajectory evaluation for tools & multi-agent systems, LLM-as-a-judge verification, CI/CD automated gates | 💡 Conceptualized |
 | **02** | [Context Compaction & RAG Memory Pattern](file:///c:/Users/preth/Documents/Agentic-AI-Case-studies/case-studies/02-context-compaction-rag-memory/README.md) | Solving context saturation in local LLMs (DeepSeek-R1:7B in LM Studio under 8k limit) via entity compaction, <think> pruning, and episodic RAG | 💡 Conceptualized |
+| **03** | [Google ADK to Local LLMs via OpenAI Wrappers](file:///c:/Users/preth/Documents/Agentic-AI-Case-studies/case-studies/03-google-adk-local-llm-wrapper/README.md) | Decoupling Google Agent Development Kit (ADK) from Vertex AI / GCP to run locally on Ollama/LM Studio using OpenAI-compatible adapters | 💡 Conceptualized |
 
 ---
 
