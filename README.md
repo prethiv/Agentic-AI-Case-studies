@@ -31,8 +31,10 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
     │   └── README.md                                     # Enterprise ReAct loop engine, cycle detection & context control
     ├── 05-slm-edge-device-harnessing/                    # Case Study 5: Harnessing Small Language Models on Edge Devices
     │   └── README.md                                     # On-device SLM execution harness, GBNF function calling & edge routing
-    └── 06-git-prehooks-slm-judge/                        # Case Study 6: SLM-as-a-Judge via Git Pre-Hooks & llama-cli
-        └── README.md                                     # Zero-daemon local code review, GBNF schema gating & diff linting
+    ├── 06-git-prehooks-slm-judge/                        # Case Study 6: SLM-as-a-Judge via Git Pre-Hooks & llama-cli
+    │   └── README.md                                     # Zero-daemon local code review, GBNF schema gating & diff linting
+    └── 07-agentic-observability-patterns/                # Case Study 7: Semantic Observability & Telemetry for Autonomous Agents
+        └── README.md                                     # Hierarchical OTel GenAI span trees, state-delta ledgers & circuit breakers
 ```
 
 ---
@@ -47,6 +49,7 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
 | **04** | [Resilient ReAct Production Architecture & Blueprint](case-studies/04-resilient-react-production-architecture/README.md) | Enterprise ReAct systems: trajectory fingerprinting for cycle detection, scratchpad distillation, Pydantic guardrails, and OpenTelemetry | 💡 Conceptualized |
 | **05** | [Harnessing SLMs on Edge Devices](case-studies/05-slm-edge-device-harnessing/README.md) | On-device SLMs (Gemma 2B, Qwen 2.5 1.5B/3B, Llama 3.2 1B): GBNF-constrained function calling, edge semantic routing, and SBC/NPU optimization | 💡 Conceptualized |
 | **06** | [SLM-as-a-Judge via Git Pre-Hooks & llama-cli](case-studies/06-git-prehooks-slm-judge/README.md) | Local semantic code review via Git pre-commit hooks, zero-daemon llama-cli auto-bootstrapping, and GBNF JSON Schema enforcement | 💡 Conceptualized |
+| **07** | [Semantic Observability & Telemetry Patterns](case-studies/07-agentic-observability-patterns/README.md) | Cognitive loop tracing (OTel GenAI), event-sourced state-delta ledgers, budget circuit breakers, and async LLM-as-a-judge pipelines | 💡 Conceptualized |
 
 ---
 
