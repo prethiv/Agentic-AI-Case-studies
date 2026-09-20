@@ -48,37 +48,64 @@ This case study designs a production-grade **Matrix-Based Agentic Reasoning Engi
 
 ### 1. The Latent Thought Tensor (Continuous CoT)
 Instead of unembedding the last transformer hidden state into discrete vocabulary logits ($\mathbf{h}_t \in \mathbb{R}^d \rightarrow \text{Softmax}(\mathbf{W}_u \mathbf{h}_t) \rightarrow \text{token}$), the agent preserves $K$ internal reasoning steps as a **Continuous Thought Matrix**:
-$$\mathbf{H}_{\text{thought}} = \begin{bmatrix} \mathbf{h}_1^T \\ \mathbf{h}_2^T \\ \vdots \\ \mathbf{h}_K^T \end{bmatrix} \in \mathbb{R}^{K \times d}$$
+
+$$
+\mathbf{H}_{\text{thought}} = \begin{bmatrix} \mathbf{h}_1^T \\ \mathbf{h}_2^T \\ \vdots \\ \mathbf{h}_K^T \end{bmatrix} \in \mathbb{R}^{K \times d}
+$$
+
 Subsequent decision heads attend directly over $\mathbf{H}_{\text{thought}}$ in continuous latent space without incurring autoregressive decoding latency (analogous to Meta's *Coconut* continuous thought paradigm).
 
 ---
 
 ### 2. Causal Belief & Dependency Adjacency Matrix ($\mathbf{A} \in \mathbb{R}^{N \times N}$)
 Represent the agent's active cognitive space as a set of $N$ heterogeneous nodes:
-$$\mathcal{V} = \{ \text{User Goal}, \text{Sub-Goal}_1, \dots, \text{Tool}_1, \dots, \text{Constraint}_1, \dots \}$$
+
+$$
+\mathcal{V} = \{ \text{User Goal}, \text{Sub-Goal}_1, \dots, \text{Tool}_1, \dots, \text{Constraint}_1, \dots \}
+$$
 
 The weighted directed adjacency matrix $\mathbf{A} \in \mathbb{R}^{N \times N}$ encodes directional dependency and semantic affinity:
-$$\mathbf{A}_{i,j} = \sigma\left(\frac{\mathbf{e}_i \cdot \mathbf{e}_j^T}{\sqrt{d}}\right) \in [0, 1]$$
+
+$$
+\mathbf{A}_{i,j} = \sigma\left(\frac{\mathbf{e}_i \cdot \mathbf{e}_j^T}{\sqrt{d}}\right) \in [0, 1]
+$$
+
 where $\mathbf{e}_i, \mathbf{e}_j$ are normalized dense embedding vectors of node $i$ and node $j$, and $\sigma$ is a thresholded sigmoid activation.
 
 #### Instant Multi-Hop Reachability via Matrix Powers
 To determine if a proposed tool execution satisfies a downstream goal across $k$ intermediate reasoning hops, we compute the **$k$-th Matrix Power**:
-$$\mathbf{R} = \sum_{k=1}^{M} \mathbf{A}^k = \mathbf{A} + \mathbf{A}^2 + \dots + \mathbf{A}^M$$
+
+$$
+\mathbf{R} = \sum_{k=1}^{M} \mathbf{A}^k = \mathbf{A} + \mathbf{A}^2 + \dots + \mathbf{A}^M
+$$
+
 - If $(\mathbf{A}^k)_{i,j} > 0$, there exists an exact $k$-hop causal path from node $i$ to node $j$.
 - **Computational Cost**: Computed in a single GPU GEMM operation ($<1\text{ms}$), completely bypassing multi-turn textual LLM deliberation.
 
 #### Deterministic Cycle Detection via Matrix Trace
 In standard ReAct, detecting circular reasoning requires parsing verbose text strings. In matrix space, an agent detects circular loops of length $k$ instantly by calculating the **Matrix Trace**:
-$$\text{Cycles of length } k \iff \text{Tr}(\mathbf{A}^k) = \sum_{i=1}^N (\mathbf{A}^k)_{i,i} > 0$$
+
+$$
+\text{Cycles of length } k \iff \text{Tr}(\mathbf{A}^k) = \sum_{i=1}^N (\mathbf{A}^k)_{i,i} > 0
+$$
+
 If the diagonal contains non-zero entries, the agent has entered a circular loop and halts execution immediately.
 
 ---
 
 ### 3. Attention Weight Matrix Steering
 In transformer layers, token-to-token attention is governed by:
-$$\mathbf{S} = \text{Softmax}\left(\frac{\mathbf{Q}\mathbf{K}^T}{\sqrt{d_k}} + \mathbf{M}\right)$$
+
+$$
+\mathbf{S} = \text{Softmax}\left(\frac{\mathbf{Q}\mathbf{K}^T}{\sqrt{d_k}} + \mathbf{M}\right)
+$$
+
 By algebraically injecting the adjacency matrix $\mathbf{A}$ into the structural bias matrix $\mathbf{M}$:
-$$\mathbf{M}_{i,j} = \begin{cases} 0 & \text{if } \mathbf{A}_{i,j} \ge \tau \text{ (valid causal transition)} \\ -\infty & \text{if } \mathbf{A}_{i,j} < \tau \text{ (disallowed action / hallucination)} \end{cases}$$
+
+$$
+\mathbf{M}_{i,j} = \begin{cases} 0 & \text{if } \mathbf{A}_{i,j} \ge \tau \text{ (valid causal transition)} \\ -\infty & \text{if } \mathbf{A}_{i,j} < \tau \text{ (disallowed action / hallucination)} \end{cases}
+$$
+
 The model's internal attention heads are physically prevented from routing probability mass to invalid tool choices before sampling even occurs.
 
 ---
