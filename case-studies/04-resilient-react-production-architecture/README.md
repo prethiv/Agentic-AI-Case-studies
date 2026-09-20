@@ -74,18 +74,25 @@ flowchart TD
 
 ```mermaid
 quadrantChart
-    title Reasoning Depth vs. Environmental Grounding
+    title Reasoning Depth vs Environmental Grounding
     x-axis Low Environmental Grounding --> High Environmental Grounding
-    y-axis Low Deliberation / Reasoning --> High Deliberation / Reasoning
-    quadrant-1 ReAct (Balanced & Adaptive)
-    quadrant-2 Pure Chain-of-Thought (CoT)
-    quadrant-3 Zero-Shot Single Prompt
-    quadrant-4 Direct Tool-Use / Action-Only
-    "Zero-Shot Direct Prompt": [0.15, 0.20]
-    "Pure Chain-of-Thought (CoT)": [0.25, 0.85]
-    "Direct Tool Calling (Action-Only)": [0.85, 0.25]
-    "ReAct (Reasoning + Acting)": [0.85, 0.88]
+    y-axis Low Deliberation --> High Deliberation
+    quadrant-1 Balanced ReAct
+    quadrant-2 Pure Chain of Thought
+    quadrant-3 Zero Shot Direct
+    quadrant-4 Action Only Tool Calling
+    Zero-Shot Prompt: [0.15, 0.20]
+    Pure CoT: [0.25, 0.85]
+    Action-Only Tools: [0.85, 0.25]
+    ReAct Production: [0.85, 0.88]
 ```
+
+| Paradigm | Environmental Grounding | Reasoning Deliberation | Dynamic Error Recovery | Hallucination Risk |
+| :--- | :--- | :--- | :--- | :--- |
+| **Zero-Shot Prompt** | ❌ None | ❌ Low | ❌ None | 🔴 High |
+| **Pure Chain-of-Thought (CoT)** | ❌ None | ✅ High | ❌ None (no tool feedback) | 🔴 High (ungrounded) |
+| **Direct Tool-Use (Action-Only)** | ✅ High | ❌ Low | ⚠️ Brittle (no backtrack) | 🟡 Moderate |
+| **ReAct (Reasoning + Acting)** | ✅ High | ✅ High | ✅ Resilient & Adaptive | 🟢 Low (grounded) |
 
 * **Vs. Pure Chain-of-Thought (CoT):** CoT lacks grounded truth; it hallucinates facts and cannot retrieve updated context or manipulate external state.
 * **Vs. Direct Tool-Use / Function Calling (Action-Only):** Direct execution lacks explicit deliberation. When an API call returns an unexpected error, Action-only models struggle to backtrack or adapt their strategy dynamically.
