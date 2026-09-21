@@ -37,8 +37,10 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
     │   └── README.md                                     # Hierarchical OTel GenAI span trees, state-delta ledgers & circuit breakers
     ├── 08-agentic-distributed-job-scheduler-mcp/         # Case Study 8: Distributed Job Scheduler via MCP, RAG & HITL
     │   └── README.md                                     # Meta-MCP batch orchestration, SLM pre-hooks & state-mutating HITL gates
-    └── 09-matrix-reasoning-latent-agent-state/           # Case Study 9: Matrix-Based Agentic Reasoning & Continuous Latent States
-        └── README.md                                     # Replacing text scratchpads with adjacency matrix operations & GEMM planning
+    ├── 09-matrix-reasoning-latent-agent-state/           # Case Study 9: Matrix-Based Agentic Reasoning & Continuous Latent States
+    │   └── README.md                                     # Replacing text scratchpads with adjacency matrix operations & GEMM planning
+    └── 10-jev-structured-react-systems/                  # Case Study 10: Structured ReAct Systems via Jev (TypeSafe AI)
+        └── README.md                                     # Fast System 1 primitives, dynamic model routing, risk gating & observation compaction
 ```
 
 ---
@@ -56,6 +58,7 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
 | **07** | [Semantic Observability & Telemetry Patterns](case-studies/07-agentic-observability-patterns/README.md) | Cognitive loop tracing (OTel GenAI), event-sourced state-delta ledgers, budget circuit breakers, and async LLM-as-a-judge pipelines | 💡 Conceptualized |
 | **08** | [Distributed Job Scheduler via MCP & HITL](case-studies/08-agentic-distributed-job-scheduler-mcp/README.md) | Meta-MCP intelligent batch engine, asynchronous multi-hop RAG, edge SLM pre-hook sanitization, and HITL authorization gates | 💡 Conceptualized |
 | **09** | [Matrix-Based Agentic Reasoning](case-studies/09-matrix-reasoning-latent-agent-state/README.md) | Replacing discrete text scratchpads with continuous state matrices, causal adjacency tensors, and GPU GEMM reachability | 💡 Conceptualized |
+| **10** | [Structured ReAct Systems via Jev](case-studies/10-jev-structured-react-systems/README.md) | Fast System 1 decision primitives (Noul, Choice, Score), dynamic model routing, pre-action risk gating, observation compaction & Pydantic AI TypeSafeModel | 💡 Conceptualized |
 
 ---
 
