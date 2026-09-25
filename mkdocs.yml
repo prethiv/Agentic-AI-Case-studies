@@ -1,0 +1,80 @@
+site_name: Agentic AI Case Studies
+site_description: Curated architectural case studies, brainstorms, and repeatable design patterns across the Agentic AI lifecycle.
+site_author: Prethiv
+site_url: https://prethiv.github.io/Agentic-AI-Case-studies/
+repo_url: https://github.com/prethiv/Agentic-AI-Case-studies
+repo_name: prethiv/Agentic-AI-Case-studies
+
+docs_dir: docs
+site_dir: site
+
+theme:
+  name: material
+  language: en
+  palette:
+    # Light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: deep purple
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: light blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.arithmatex:
+      generic: true
+  - tables
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+nav:
+  - Home: index.md
+  - Case Studies:
+      - "01 - Agentic Evaluation Pattern": case-studies/01-agentic-evaluation-pattern/README.md
+      - "02 - Context Compaction & RAG Memory": case-studies/02-context-compaction-rag-memory/README.md
+      - "03 - Google ADK to Local LLMs": case-studies/03-google-adk-local-llm-wrapper/README.md
+      - "04 - Resilient ReAct Architecture": case-studies/04-resilient-react-production-architecture/README.md
+      - "05 - Harnessing SLMs on Edge": case-studies/05-slm-edge-device-harnessing/README.md
+      - "06 - SLM-as-a-Judge Git Pre-Hooks": case-studies/06-git-prehooks-slm-judge/README.md
+      - "07 - Semantic Observability Patterns": case-studies/07-agentic-observability-patterns/README.md
+      - "08 - Distributed Job Scheduler MCP": case-studies/08-agentic-distributed-job-scheduler-mcp/README.md
+      - "09 - Matrix-Based Agentic Reasoning": case-studies/09-matrix-reasoning-latent-agent-state/README.md
+      - "10 - Structured ReAct Systems via Jev": case-studies/10-jev-structured-react-systems/README.md
+      - "11 - Hybrid Swarm Delegation & Blackboard": case-studies/11-hybrid-swarm-delegation-blackboard/README.md

@@ -9,3 +9,5 @@ htmlcov/
 .venv
 env/
 venv/
+site/
+docs/

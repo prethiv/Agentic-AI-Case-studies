@@ -2,6 +2,8 @@
 
 A curated repository of deep-dive **architectural case studies**, brainstorms, and repeatable design patterns across the Agentic AI lifecycle.
 
+📖 **Documentation Site**: [https://prethiv.github.io/Agentic-AI-Case-studies/](https://prethiv.github.io/Agentic-AI-Case-studies/)
+
 ---
 
 ## 🎯 Aim & Vision
