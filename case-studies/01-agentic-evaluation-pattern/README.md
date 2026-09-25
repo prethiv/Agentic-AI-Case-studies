@@ -73,9 +73,12 @@ flowchart LR
 ### Tier 1: Tool Trajectory & Parameter Evaluator
 Evaluates the step-by-step action space taken by an agent:
 - **Tool Order & Selection**: Compares the sequence of tools called against golden benchmark trajectories (supporting exact match, subset match, or graph-DAG compliance).
-- **Argument & Schema Fidelity**: Validates that arguments passed to tools conform to expected schemas and semantic intent.
 - **Trajectory Efficiency Metric**:
-  $$\text{Efficiency Score} = \max\left(0, 1.0 - \alpha \cdot N_{\text{redundant}} - \beta \cdot N_{\text{superfluous}}\right)$$
+
+$$
+\text{Efficiency Score} = \max\left(0, 1.0 - \alpha \cdot N_{\text{redundant}} - \beta \cdot N_{\text{superfluous}}\right)
+$$
+
   Penalizes unnecessary tool roundtrips, circular attempts, and wasteful token consumption.
 
 ### Tier 2: Multi-Agent Protocol & Choreography Evaluator

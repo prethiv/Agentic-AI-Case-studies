@@ -124,7 +124,7 @@ Autonomous batch jobs running in the background without active human supervision
 - **Role**: Audits the semantic intent and target capability perimeter of the requested batch job.
 - **Risk Scoring Rubric**:
   - **Tool Capability Analysis**: Read-only tools (e.g., `search_docs`, `query_catalog`) receive low risk ($0.1–0.3$). Destructive or mutating tools (e.g., `execute_sql_mutation`, `transfer_funds`, `send_broadcast_email`) automatically trigger high risk ($\ge 0.8$).
-  - **Scope & Iteration Limits**: Unbounded iteration requests ($N > 20$) or requests for wide-open network scrapers escalate risk.
+  - **Scope & Iteration Limits**: Unbounded iteration requests ($N \gt 20$) or requests for wide-open network scrapers escalate risk.
   - **Data Boundary Check**: Validates that target document IDs conform to tenant-isolation policies.
 
 ### Level 3: Human-in-the-Loop (HITL) Gateway

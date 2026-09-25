@@ -7,7 +7,10 @@
 ## 1. Executive Summary & Context
 
 Autonomous agents currently rely on **discrete natural language tokens** to deliberate, plan, and self-correct:
-$$\text{User Goal} \xrightarrow{\text{Autoregressive Decode}} \text{"Thought: I need to query tool A, then verify condition B..."} \xrightarrow{} \text{Action}$$
+
+$$
+\text{User Goal} \xrightarrow{\text{Autoregressive Decode}} \text{"Thought: I need to query tool A, then verify condition B..."} \xrightarrow{} \text{Action}
+$$
 
 While human-readable, this discrete textual scratchpad creates a severe architectural bottleneck:
 - **Severe Latency & Memory Bandwidth Bounds**: Autoregressive decoding requires sequentially streaming hundreds of gigabytes of model weights from GPU/CPU RAM for every single generated token. An agent generating 400 tokens of internal reasoning performs 400 sequential memory roundtrips before taking its first real action.
@@ -79,14 +82,14 @@ $$
 \mathbf{R} = \sum_{k=1}^{M} \mathbf{A}^k = \mathbf{A} + \mathbf{A}^2 + \dots + \mathbf{A}^M
 $$
 
-- If $(\mathbf{A}^k)_{i,j} > 0$, there exists an exact $k$-hop causal path from node $i$ to node $j$.
-- **Computational Cost**: Computed in a single GPU GEMM operation ($<1\text{ms}$), completely bypassing multi-turn textual LLM deliberation.
+- If $(\mathbf{A}^k)_{i,j} \gt 0$, there exists an exact $k$-hop causal path from node $i$ to node $j$.
+- **Computational Cost**: Computed in a single GPU GEMM operation ($\lt 1\text{ms}$), completely bypassing multi-turn textual LLM deliberation.
 
 #### Deterministic Cycle Detection via Matrix Trace
 In standard ReAct, detecting circular reasoning requires parsing verbose text strings. In matrix space, an agent detects circular loops of length $k$ instantly by calculating the **Matrix Trace**:
 
 $$
-\text{Cycles of length } k \iff \text{Tr}(\mathbf{A}^k) = \sum_{i=1}^N (\mathbf{A}^k)_{i,i} > 0
+\text{Cycles of length } k \iff \text{Tr}(\mathbf{A}^k) = \sum_{i=1}^N (\mathbf{A}^k)_{i,i} \gt 0
 $$
 
 If the diagonal contains non-zero entries, the agent has entered a circular loop and halts execution immediately.
@@ -103,7 +106,7 @@ $$
 By algebraically injecting the adjacency matrix $\mathbf{A}$ into the structural bias matrix $\mathbf{M}$:
 
 $$
-\mathbf{M}_{i,j} = \begin{cases} 0 & \text{if } \mathbf{A}_{i,j} \ge \tau \text{ (valid causal transition)} \\ -\infty & \text{if } \mathbf{A}_{i,j} < \tau \text{ (disallowed action / hallucination)} \end{cases}
+\mathbf{M}_{i,j} = \begin{cases} 0 & \text{if } \mathbf{A}_{i,j} \ge \tau \text{ (valid causal transition)} \\ -\infty & \text{if } \mathbf{A}_{i,j} \lt \tau \text{ (disallowed action / hallucination)} \end{cases}
 $$
 
 The model's internal attention heads are physically prevented from routing probability mass to invalid tool choices before sampling even occurs.

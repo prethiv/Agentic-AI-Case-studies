@@ -313,7 +313,7 @@ flowchart LR
 - **Solution**: Always filter lockfiles (`package-lock.json`, `pnpm-lock.yaml`, `Cargo.lock`) and binary assets. For diffs exceeding 3,500 tokens, chunk evaluation file-by-file or escalate large diffs to pre-push.
 
 ### 2. Developer Friction & Latency Fatigue
-- **Problem**: If hooks take $>5$ seconds, developers habitually add `alias gc="git commit --no-verify"`, defeating the governance gate.
+- **Problem**: If hooks take $\gt 5$ seconds, developers habitually add `alias gc="git commit --no-verify"`, defeating the governance gate.
 - **Solution**: Enforce strict hardware offloading (`-ngl 99`) and keep pre-commit models $\le 3\text{B}$ parameters. Reserve 7B/8B models for pre-push hooks where developers expect a brief network-like pause.
 
 ### 3. False-Positive Fatigue

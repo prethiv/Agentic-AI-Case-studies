@@ -74,6 +74,15 @@ def prepare_docs():
     processHtmlClass: "arithmatex"
   }
 };
+
+document$.subscribe(() => {
+  if (typeof MathJax !== "undefined" && MathJax.typesetPromise) {
+    MathJax.startup.output.clearCache();
+    MathJax.typesetClear();
+    MathJax.texReset();
+    MathJax.typesetPromise();
+  }
+});
 """)
 
     print("[4/4] Docs structure prepared successfully.")
@@ -88,7 +97,23 @@ def run_mkdocs_build():
     print("\n[SUCCESS] MkDocs site build completed successfully!")
 
 
+def run_unit_tests():
+    """Runs the documentation and math equation unit test suite."""
+    print("\n[TEST] Running documentation & math formula unit test suite...")
+    test_file = os.path.join(os.path.dirname(__file__), "..", "tests", "test_docs_build.py")
+    res = subprocess.run([sys.executable, "-m", "unittest", test_file], check=False)
+    if res.returncode != 0:
+        print("\n[ERROR] Documentation unit tests failed! Fix issues before building/pushing.", file=sys.stderr)
+        sys.exit(1)
+    print("\n[SUCCESS] All documentation unit tests passed!")
+
+
 if __name__ == "__main__":
     prepare_docs()
-    if "--build" in sys.argv:
+    if "--test" in sys.argv:
+        run_unit_tests()
+    elif "--build" in sys.argv:
         run_mkdocs_build()
+        run_unit_tests()
+    else:
+        run_unit_tests()

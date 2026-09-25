@@ -389,7 +389,7 @@ Using the **`TypeSafeClassifier`** runnable in LangChain with a **`Noul`** quest
 
 Because Jev outputs a calibrated probability $P(\text{urgent})$, the agent's graph branches deterministically in Python:
 - If $P(\text{urgent}) \ge 0.85$: Immediate branch to the `pagerduty_node`.
-- If $P(\text{urgent}) < 0.85$: Proceeds along the standard autonomous reasoning graph.
+- If $P(\text{urgent}) \lt 0.85$: Proceeds along the standard autonomous reasoning graph.
 
 ```
 Incoming State ──► TypeSafeClassifier(Noul("Needs immediate human attention?"))
@@ -857,7 +857,7 @@ flowchart TD
 
 | Architectural Layer | Implementation Pattern | Primary Benefit |
 | :--- | :--- | :--- |
-| **Ingress Routing** | `ModelRouterMiddleware` with Jev `Choice` | Dispatches simple queries to fast SLMs; saves $>80\%$ in token costs. |
+| **Ingress Routing** | `ModelRouterMiddleware` with Jev `Choice` | Dispatches simple queries to fast SLMs; saves $\gt 80\%$ in token costs. |
 | **Action Guardrails** | `AutoModeMiddleware` with Jev `Choice` & `Score` | Deterministic pre-execution safety check; blocks prompt injection & data destruction. |
 | **Working Memory** | `JevObservationCompactor` (Keep / Truncate / Drop) | Lossless verbatim context reduction; eliminates hallucinated LLM summaries. |
 | **Thought Shortcut** | `TypeSafeClassifier` with Jev `Noul` | Sub-100ms escalation triage without autoregressive token generation. |

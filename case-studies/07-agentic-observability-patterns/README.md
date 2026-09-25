@@ -83,7 +83,11 @@ Telemetry must adhere to standardized OpenTelemetry attributes to ensure vendor 
 When an agent pollutes its own working scratchpad with malformed outputs, downstream reasoning degrades rapidly. 
 
 * **Event-Sourced Delta Tracking**: Rather than saving only final state, log an immutable snapshot before and after each cognitive turn:
-  $$\Delta \text{State} = \text{State}_{t+1} - \text{State}_t$$
+
+$$
+\Delta \text{State} = \text{State}_{t+1} - \text{State}_t
+$$
+
 * **Tracked Metrics**:
   - Context Window Occupancy Ratio: $\frac{\text{Current Tokens}}{\text{Max Model Context Limit}}$
   - Scratchpad Churn: Number of tokens appended vs. pruned per iteration.
@@ -111,7 +115,7 @@ flowchart LR
 
 1. **Semantic Thought Convergence Sensor**: Computes cosine similarity between consecutive reasoning steps. If $\text{CosineSim}(\text{Thought}_t, \text{Thought}_{t-1}) \ge 0.92$, the agent is rationalizing in a circular loop.
 2. **Tool Invocation Churn Sensor**: Hashes `(tool_name, tool_input)`. If an exact signature match repeats twice consecutively without environmental state changes, trigger an automated warning or hard halt.
-3. **Hard Budget Enforcers**: Enforces strict telemetry limits on **Max Iterations** ($N \le 8$), **Total Token Expenditure**, and **Wall-Clock Duration** (e.g., $<60\text{s}$).
+3. **Hard Budget Enforcers**: Enforces strict telemetry limits on **Max Iterations** ($N \le 8$), **Total Token Expenditure**, and **Wall-Clock Duration** (e.g., $\lt 60\text{s}$).
 
 ---
 
@@ -169,7 +173,7 @@ To avoid degrading real-time agent execution latency, heavy semantic analysis mu
                                                     (Budget Trips, Deadlocks, Loops)
 ```
 
-1. **In-Band Path (Low-Latency, $<2\text{ms}$)**: Emits lightweight OpenTelemetry spans, token usage counters, and latency measurements via asynchronous background threads.
+1. **In-Band Path (Low-Latency, $\lt 2\text{ms}$)**: Emits lightweight OpenTelemetry spans, token usage counters, and latency measurements via asynchronous background threads.
 2. **Out-of-Band Path (Deep Semantic Analysis, Asynchronous)**: Workers pull trace payloads from a queue (e.g., Redis Streams / Kafka) to run LLM-as-a-Judge grounding checks, verify PII compliance, and compute trajectory efficiency scores without blocking user-facing responses.
 
 ---

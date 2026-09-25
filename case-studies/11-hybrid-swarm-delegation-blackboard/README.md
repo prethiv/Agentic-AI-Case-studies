@@ -120,11 +120,17 @@ case-studies/11-hybrid-swarm-delegation-blackboard/
 ### 4.1 Multi-Attribute Utility Function for Contract Net Bidding
 When a coordinator broadcasts a `TaskSpec` $T_j$, each worker $A_i$ evaluates its fit by computing a composite bid score:
 
-$$\text{BidScore}(A_i, T_j) = w_{\text{conf}} \cdot \mathcal{C}(A_i, T_j) - w_{\text{lat}} \cdot \left(\frac{\hat{L}(A_i)}{\bar{L}_{\max}}\right) - w_{\text{cost}} \cdot \left(\frac{\hat{K}(A_i)}{\bar{K}_{\max}}\right)$$
+$$
+\text{BidScore}(A_i, T_j) = w_{\text{conf}} \cdot \mathcal{C}(A_i, T_j) - w_{\text{lat}} \cdot \left(\frac{\hat{L}(A_i)}{\bar{L}_{\max}}\right) - w_{\text{cost}} \cdot \left(\frac{\hat{K}(A_i)}{\bar{K}_{\max}}\right)
+$$
 
 Where:
 - $\mathcal{C}(A_i, T_j) \in [0.0, 1.0]$: Calibrated domain capability confidence of worker $A_i$ for the requested capability set $\{r_1, r_2, \dots, r_m\}$:
-  $$\mathcal{C}(A_i, T_j) = \frac{1}{m} \sum_{k=1}^m \text{CapabilityMap}_{A_i}(r_k)$$
+
+$$
+\mathcal{C}(A_i, T_j) = \frac{1}{m} \sum_{k=1}^m \text{CapabilityMap}_{A_i}(r_k)
+$$
+
 - $\hat{L}(A_i)$: Expected execution latency in milliseconds, normalized against task ceiling $\bar{L}_{\max}$.
 - $\hat{K}(A_i)$: Estimated token consumption, normalized against task token ceiling $\bar{K}_{\max}$.
 - $w_{\text{conf}}, w_{\text{lat}}, w_{\text{cost}}$: Normalized weighting coefficients such that $w_{\text{conf}} + w_{\text{lat}} + w_{\text{cost}} = 1.0$.
@@ -135,9 +141,11 @@ Let the delegation network be represented as a directed graph $\mathcal{G}_{\tex
 #### Theorem 1 (Cycle Prevention Invariant):
 To prevent runaway infinite delegation loops (e.g., $A \to B \to C \to A$), $\mathcal{G}_{\text{del}}$ must maintain a strict Directed Acyclic Graph (DAG) structure at all times:
 
-$$\forall (u, v) \in E: \quad v \not\rightsquigarrow_{\mathcal{G}} u$$
+$$
+\forall (u, v) \in E: \quad v \not\rightsquigarrow_{\mathcal{G}} u
+$$
 
-Where $v \rightsquigarrow_{\mathcal{G}} u$ denotes that $u$ is reachable from $v$ in $\mathcal{G}_{\text{del}}$.
+Where $v \rightsquigarrow_{\mathcal{G}} u$ denotes that $u$ is reachable from $v$ in $\mathcal{G}_{\text{del}}$ (meaning no cyclic return path can exist when delegating from $u$ to $v$).
 
 Before inserting any delegation edge $(u, v)$, the coordinator performs a reachability traversal:
 ```python
@@ -159,14 +167,18 @@ def would_create_cycle(from_agent: str, to_agent: str) -> bool:
 #### Theorem 2 (Bounded Recursion Ceiling):
 To prevent exponential subagent explosion, the depth of any node in the delegation tree is bounded by a hard invariant:
 
-$$\text{Depth}(v) \le D_{\max}, \quad \forall v \in V$$
+$$
+\text{Depth}(v) \le D_{\max}, \quad \forall v \in V
+$$
 
-If $\text{Depth}(v) > D_{\max}$, the delegation is rejected with `MaxDepthExceededError`.
+If $\text{Depth}(v) \gt D_{\max}$, the delegation is rejected with `MaxDepthExceededError`.
 
 ### 4.3 Stigmergic Pheromone Decay & Evaporation Dynamics
 To prevent unaddressed tasks or outdated artifacts from causing resource starvation in the swarm, blackboard entries undergo periodic urgency evaporation:
 
-$$\tau_k(t + 1) = \max\left(0, \, (1 - \rho) \cdot \tau_k(t)\right)$$
+$$
+\tau_k(t + 1) = \max\left(0, \, (1 - \rho) \cdot \tau_k(t)\right)
+$$
 
 Where:
 - $\tau_k(t)$: Pheromone urgency coefficient of entry $k$ at discrete time $t$.
@@ -326,7 +338,7 @@ python case-studies/11-hybrid-swarm-delegation-blackboard/examples/test_swarm.py
 - `test_cycle_detection_simple`: PASS (cyclic delegation $A \to B \to A$ caught and aborted).
 - `test_cycle_detection_multi_hop`: PASS (multi-hop cycle $A \to B \to C \to A$ detected).
 - `test_self_delegation_cycle`: PASS ($A \to A$ rejected).
-- `test_max_depth_ceiling`: PASS (depth $> 3$ raised `MaxDepthExceededError`).
+- `test_max_depth_ceiling`: PASS (depth $\gt 3$ raised `MaxDepthExceededError`).
 - `test_contract_net_auction_win`: PASS (specialist wins auction over generalist by $+0.58$ score delta).
 - `test_blackboard_concurrency_conflict`: PASS (stale version write rejected with `ConcurrencyConflictError`).
 - `test_pheromone_evaporation`: PASS (urgency decays from $1.00 \to 0.90$ under $\rho=0.1$).

@@ -39,7 +39,11 @@ Running generative models on edge computing platforms requires understanding the
 
 1. **Memory Bandwidth (The Primary Bottleneck)**:
    LLM autoregressive token generation is memory-bandwidth bound, not compute bound:
-   $$\text{Maximum Theoretical Tokens/sec} = \frac{\text{Memory Bandwidth (GB/s)}}{\text{Model Weight Size (GB)}}$$
+
+$$
+\text{Maximum Theoretical Tokens/sec} = \frac{\text{Memory Bandwidth (GB/s)}}{\text{Model Weight Size (GB)}}
+$$
+
    * *Example*: A 2B parameter model quantized to INT4 takes ~1.2 GB of RAM. On a Raspberry Pi 5 ($17\text{ GB/s}$ bandwidth), theoretical throughput is capped at $\approx 14\text{ tokens/s}$.
 2. **Thermal & Power Budgets**:
    SBCs and IoT gateways operate within strict 5W–25W envelopes. Sustained multi-minute prompt ingestion (prefill phase) causes thermal throttling, degrading clock speeds by up to 50%.
@@ -139,7 +143,7 @@ flowchart TD
 2. **Thermal & Resource Watchdog**:
    Monitors CPU core temperatures and available battery capacity. Automatically adjusts CPU thread count (e.g., from 4 threads down to 2 threads on Raspberry Pi 5) during extended reasoning steps to avoid emergency kernel down-clocking.
 3. **Quantization & Execution Engine**:
-   Standardized on formats like **GGUF (Q4_K_M)** for balanced perplexity retention ($<0.1$ degradation) and minimal memory footprint ($\sim 1.3\text{ GB}$ for Gemma 2B, $\sim 2.1\text{ GB}$ for Qwen 2.5 3B).
+   Standardized on formats like **GGUF (Q4_K_M)** for balanced perplexity retention ($\lt 0.1$ degradation) and minimal memory footprint ($\sim 1.3\text{ GB}$ for Gemma 2B, $\sim 2.1\text{ GB}$ for Qwen 2.5 3B).
 
 ---
 
@@ -351,10 +355,10 @@ Empirical benchmarks comparing popular edge-capable SLMs across quantization lev
 | **Phi-3.5 Mini** | 3.82 Billion | Q4_K_M (GGUF) | 2.38 GB | 640 ms | 5.3 tokens/s | 100% |
 
 ### Key Benchmark Takeaways
-1. **The 1B–2B "Sweet Spot"**: On pure CPU ARM platforms (Raspberry Pi 5), 1B–2B models quantized to `Q4_K_M` sustain generation speeds exceeding average human reading speed ($>10\text{ tokens/s}$) without triggering thermal down-clocking.
+1. **The 1B–2B "Sweet Spot"**: On pure CPU ARM platforms (Raspberry Pi 5), 1B–2B models quantized to `Q4_K_M` sustain generation speeds exceeding average human reading speed ($\gt 10\text{ tokens/s}$) without triggering thermal down-clocking.
 2. **The Impact of Constrained Decoding (GBNF)**:
    - *Without Grammar*: 2B models produce malformed JSON syntax or hallucinated parameter names up to 34% of the time.
-   - *With Grammar*: Logit masking guarantees 100% syntactically valid JSON matching Pydantic schemas, with a negligible $<3\%$ latency penalty.
+   - *With Grammar*: Logit masking guarantees 100% syntactically valid JSON matching Pydantic schemas, with a negligible $\lt 3\%$ latency penalty.
 3. **KV Cache Sizing**:
    Restricting context from $8192$ to $2048$ tokens saves over $600\text{ MB}$ of unified memory, preventing Linux kernel Out-Of-Memory (OOM) killer invocations.
 

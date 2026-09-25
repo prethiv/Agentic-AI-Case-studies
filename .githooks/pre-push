@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Git pre-push hook for Agentic-AI-Case-studies
+# Validates documentation preparation, math equations, and builds static site before pushing.
+
+set -e
+
+echo ""
+echo "=========================================================="
+echo " [pre-push] Running Documentation Build & Unit Test Suite"
+echo "=========================================================="
+echo ""
+
+python scripts/build_docs.py --build
+
+if [ $? -ne 0 ]; then
+    echo ""
+    echo "[pre-push ERROR] Documentation build or unit tests failed!"
+    echo "Push aborted. Please fix the math/documentation issues before pushing."
+    exit 1
+fi
+
+echo ""
+echo "[pre-push SUCCESS] Documentation & Unit Tests passed. Proceeding with push."
+echo ""
