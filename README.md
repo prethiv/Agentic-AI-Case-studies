@@ -39,8 +39,11 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
     │   └── README.md                                     # Meta-MCP batch orchestration, SLM pre-hooks & state-mutating HITL gates
     ├── 09-matrix-reasoning-latent-agent-state/           # Case Study 9: Matrix-Based Agentic Reasoning & Continuous Latent States
     │   └── README.md                                     # Replacing text scratchpads with adjacency matrix operations & GEMM planning
-    └── 10-jev-structured-react-systems/                  # Case Study 10: Structured ReAct Systems via Jev (TypeSafe AI)
-        └── README.md                                     # Fast System 1 primitives, dynamic model routing, risk gating & observation compaction
+    ├── 10-jev-structured-react-systems/                  # Case Study 10: Structured ReAct Systems via Jev (TypeSafe AI)
+    │   └── README.md                                     # Fast System 1 primitives, dynamic model routing, risk gating & observation compaction
+    └── 11-hybrid-swarm-delegation-blackboard/            # Case Study 11: Hybrid Hierarchical Delegation & Stigmergic Blackboard Swarming
+        ├── README.md                                     # In-depth architectural blueprint, formal models, failure matrix & OTel spans
+        └── examples/                                     # Complete executable reference architecture & unit tests
 ```
 
 ---
@@ -59,6 +62,7 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
 | **08** | [Distributed Job Scheduler via MCP & HITL](case-studies/08-agentic-distributed-job-scheduler-mcp/README.md) | Meta-MCP intelligent batch engine, asynchronous multi-hop RAG, edge SLM pre-hook sanitization, and HITL authorization gates | 💡 Conceptualized |
 | **09** | [Matrix-Based Agentic Reasoning](case-studies/09-matrix-reasoning-latent-agent-state/README.md) | Replacing discrete text scratchpads with continuous state matrices, causal adjacency tensors, and GPU GEMM reachability | 💡 Conceptualized |
 | **10** | [Structured ReAct Systems via Jev](case-studies/10-jev-structured-react-systems/README.md) | Fast System 1 decision primitives (Noul, Choice, Score), dynamic model routing, pre-action risk gating, observation compaction & Pydantic AI TypeSafeModel | 💡 Conceptualized |
+| **11** | [Hybrid Swarm Delegation & Stigmergic Blackboard](case-studies/11-hybrid-swarm-delegation-blackboard/README.md) | Hybrid hierarchical routing + stigmergic shared memory, Contract Net Protocol (CNP) task auctioning, DAG cycle & depth guards, and scoped Handoff Tokens | 💡 Conceptualized |
 
 ---
 
