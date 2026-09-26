@@ -126,10 +126,10 @@ flowchart TD
     TreePolicy -->|Select Leaf| LLMGen
     LLMGen -->|k Candidate Actions| ShadowBox
     ShadowBox -->|Simulated Observation| PRM
-    PRM -->|Step Score r_t in [0, 1]| Backprop
-    Backprop -->|Update N(s, a) & Q(s, a)| TreePolicy
+    PRM -->|Step Score Evaluation| Backprop
+    Backprop -->|Update Visit Count and Q Value| TreePolicy
     
-    TreePolicy -.->|Search Budget Exhausted<br/>Select argmax Q(s0, a)| ProdEnv
+    TreePolicy -.->|Commit Best Action| ProdEnv
 ```
 
 ### 3.1 The 4 Phases of Agentic MCTS
@@ -148,21 +148,21 @@ sequenceDiagram
 
     Note over MCTS,Gen: Phase 2: Expansion
     MCTS->>Gen: Request k diverse tool actions for s_leaf
-    Gen-->>MCTS: [Action A1, Action A2, Action A3]
+    Gen-->>MCTS: Action Candidates A1, A2, A3
 
     Note over MCTS,Sim: Phase 3: Simulation & Rollout
     loop For Each Candidate Action
         MCTS->>Sim: Execute Action in Ephemeral Sandbox
         Sim-->>MCTS: Simulated Observation o_sim
         MCTS->>PRM: Evaluate Step (s_leaf, Action, o_sim)
-        PRM-->>MCTS: Step Process Score r in [0, 1]
+        PRM-->>MCTS: Step Process Score r
     end
 
     Note over MCTS: Phase 4: Backpropagation
     MCTS->>MCTS: Update visit count N and value Q along trajectory path
 
     Note over MCTS,Env: Phase 5: Production Execution
-    MCTS->>Env: Commit best action a* = argmax Q(s0, a)
+    MCTS->>Env: Commit best action argmax Q
     Env-->>MCTS: Real-world Observation o_real
 ```
 

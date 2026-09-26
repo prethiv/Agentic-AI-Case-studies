@@ -96,7 +96,7 @@ flowchart TD
     end
 
     subgraph Registry["Dynamic Tool Registry & MCP Hot-Reloader"]
-        TestResults -->|Success (100%)| SpecGen["Extract OpenAPI / JSON Schema"]
+        TestResults -->|All Tests Passed| SpecGen["Extract OpenAPI / JSON Schema"]
         SpecGen --> ToolEmbed["Compute Tool Embedding vector"]
         ToolEmbed --> VectorCatalog[("Semantic Tool Vector Catalog")]
         SpecGen --> MCPServer["Runtime MCP Tool Server (Hot Reload)"]

@@ -96,8 +96,8 @@ flowchart TD
         SnapshotEngine["Periodic Snapshot Engine (every N steps)"]
     end
 
-    Agent <-->|Tool Requests / Returns| Interceptor
-    Agent <-->|Inference Calls / Completions| Interceptor
+    Agent <-->|Tool Requests and Returns| Interceptor
+    Agent <-->|Inference Calls and Completions| Interceptor
     Interceptor -->|Pass-Through| Tools
     Interceptor -->|Pass-Through| LLM
     Interceptor -->|Emit Immutable Events| Ledger
@@ -127,9 +127,9 @@ sequenceDiagram
     participant Mock as Deterministic Virtual Mock
 
     Note over Dev,Ledger: Phase 1: Zero-Cost Deterministic Playback
-    Dev->>Engine: Replay Session "sess_9824" up to Step 14
-    Engine->>Ledger: Stream Events [e1 .. e14]
-    loop For each event in [e1 .. e14]
+    Dev->>Engine: Replay Session sess_9824 up to Step 14
+    Engine->>Ledger: Stream Events e1 through e14
+    loop For each event from e1 to e14
         Engine->>Agent: Replay LLM output & Tool Observation from Ledger
         Note over Agent: State is reconstructed without network I/O or token spend
     end

@@ -102,6 +102,97 @@ class TestMarkdownMathSyntax(unittest.TestCase):
         blocks = block_pattern.findall(content)
         self.assertGreaterEqual(len(blocks), 4, f"Expected at least 4 display math blocks in Case Study 11, found {len(blocks)}")
 
+    def test_newly_added_case_studies_12_to_15_math_structure(self):
+        """Case studies 12 through 15 must contain required display math blocks formatted on isolated lines."""
+        for num in ["12", "13", "14", "15"]:
+            matches = [d for d in os.listdir(CASE_STUDIES_DIR) if d.startswith(f"{num}-")]
+            self.assertTrue(len(matches) > 0, f"Case study {num} directory not found")
+            readme_path = os.path.join(CASE_STUDIES_DIR, matches[0], "README.md")
+            self.assertTrue(os.path.exists(readme_path), f"{readme_path} must exist")
+
+            with open(readme_path, "r", encoding="utf-8") as f:
+                content = f.read()
+
+            block_pattern = re.compile(r"\n\$\$\n.*?\n\$\$\n", re.DOTALL)
+            blocks = block_pattern.findall(content)
+            self.assertGreaterEqual(
+                len(blocks),
+                2,
+                f"Expected at least 2 display math blocks in Case Study {num}, found {len(blocks)}",
+            )
+
+
+class TestMermaidDiagramSyntax(unittest.TestCase):
+    """Validates Mermaid diagrams in markdown files to ensure zero browser rendering syntax errors."""
+
+    VALID_DIAGRAM_TYPES = (
+        "graph",
+        "flowchart",
+        "sequenceDiagram",
+        "classDiagram",
+        "stateDiagram",
+        "stateDiagram-v2",
+        "erDiagram",
+        "gitGraph",
+        "gantt",
+        "pie",
+        "quadrantChart",
+    )
+
+    def test_mermaid_diagram_headers(self):
+        """All mermaid blocks must declare a recognized valid diagram type header."""
+        for root, _, files in os.walk(CASE_STUDIES_DIR):
+            for file in files:
+                if file.endswith(".md"):
+                    path = os.path.join(root, file)
+                    rel_path = os.path.relpath(path, REPO_ROOT)
+                    with open(path, "r", encoding="utf-8") as f:
+                        content = f.read()
+
+                    mermaid_blocks = re.findall(r"```mermaid\n(.*?)\n```", content, re.DOTALL)
+                    for idx, block in enumerate(mermaid_blocks):
+                        lines = [line.strip() for line in block.strip().splitlines() if line.strip()]
+                        self.assertTrue(len(lines) > 0, f"Empty mermaid block {idx} in {rel_path}")
+                        header = lines[0].split()[0]
+                        self.assertIn(
+                            header,
+                            self.VALID_DIAGRAM_TYPES,
+                            f"Invalid Mermaid diagram header '{header}' in {rel_path} (block {idx})",
+                        )
+
+    def test_no_unquoted_special_characters_in_mermaid_edge_labels(self):
+        """Mermaid edge labels (|...|) must not contain unquoted brackets or parens that trigger syntax errors."""
+        violations = []
+        # Pattern detects |...| with unescaped/unquoted brackets or parens
+        for root, _, files in os.walk(CASE_STUDIES_DIR):
+            for file in files:
+                if file.endswith(".md"):
+                    path = os.path.join(root, file)
+                    rel_path = os.path.relpath(path, REPO_ROOT)
+                    with open(path, "r", encoding="utf-8") as f:
+                        content = f.read()
+
+                    mermaid_blocks = re.findall(r"```mermaid\n(.*?)\n```", content, re.DOTALL)
+                    for block_idx, block in enumerate(mermaid_blocks):
+                        for line_idx, line in enumerate(block.splitlines(), 1):
+                            labels = re.findall(r"\|([^\|]+)\|", line)
+                            for label in labels:
+                                # If label is enclosed in double quotes e.g. |"Text (Extra)"|, it is valid in Mermaid
+                                if label.startswith('"') and label.endswith('"'):
+                                    continue
+                                # Otherwise, unquoted raw brackets/parens trigger Mermaid parser errors
+                                if any(ch in label for ch in "[]()"):
+                                    violations.append(
+                                        f"{rel_path} (block {block_idx}, line {line_idx}): |{label}|"
+                                    )
+
+        self.assertEqual(
+            violations,
+            [],
+            f"Found unquoted brackets/parens in Mermaid edge labels (causes browser syntax error):\n"
+            + "\n".join(violations),
+        )
+
 
 class TestDocsPreparation(unittest.TestCase):
     """Validates docs preparation scripts and configuration."""
@@ -128,15 +219,15 @@ class TestBuiltSiteIntegrity(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         # Ensure site is built before verifying HTML
-        site_case_11 = os.path.join(SITE_DIR, "case-studies", "11-hybrid-swarm-delegation-blackboard", "index.html")
-        if not os.path.exists(site_case_11):
+        site_case_15 = os.path.join(SITE_DIR, "case-studies", "15-deterministic-event-sourced-replay", "index.html")
+        if not os.path.exists(site_case_15):
             from scripts.build_docs import prepare_docs, run_mkdocs_build
             prepare_docs()
             run_mkdocs_build()
 
-    def test_all_eleven_case_studies_generated(self):
-        """Every case study (01 through 11) must have a built index.html."""
-        for i in range(1, 12):
+    def test_all_fifteen_case_studies_generated(self):
+        """Every case study (01 through 15) must have a built index.html."""
+        for i in range(1, 16):
             prefix = f"{i:02d}-"
             matches = [d for d in os.listdir(os.path.join(SITE_DIR, "case-studies")) if d.startswith(prefix)]
             self.assertTrue(len(matches) > 0, f"Case study {prefix} directory not found in site/")
@@ -204,6 +295,17 @@ class TestBuiltSiteIntegrity(unittest.TestCase):
         self.assertIn('<span class="arithmatex">\\(\\text{Depth}(v) \\gt D_{\\max}\\)</span>', html)
         self.assertIn('<div class="arithmatex">\\[ \\tau_k(t + 1) = \\max', norm_html)
 
+    def test_case_studies_mermaid_containers_rendered(self):
+        """Case studies 12 through 15 built HTML must contain valid rendered mermaid containers."""
+        for num in ["12", "13", "14", "15"]:
+            matches = [d for d in os.listdir(os.path.join(SITE_DIR, "case-studies")) if d.startswith(f"{num}-")]
+            self.assertTrue(len(matches) > 0, f"Site directory for case study {num} not found")
+            html_path = os.path.join(SITE_DIR, "case-studies", matches[0], "index.html")
+            with open(html_path, "r", encoding="utf-8") as f:
+                html = f.read()
+            self.assertIn('class="mermaid"', html, f"Case study {num} HTML missing mermaid containers")
+
 
 if __name__ == "__main__":
     unittest.main()
+

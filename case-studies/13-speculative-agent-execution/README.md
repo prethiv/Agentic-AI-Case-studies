@@ -86,8 +86,8 @@ flowchart TD
     subgraph SpeculativeGraph["Causal Dependency Analyzer"]
         DraftEngine --> DAG["Parsed Action Graph G = (V, E)"]
         DAG --> Partition{"Action Classification"}
-        Partition -->|Read-Only & Independent| PreExecPool["Asynchronous Shadow Pre-Execution Pool"]
-        Partition -->|State-Mutating / Dependent| StagingBuffer["Staged Action Buffer (Gated)"]
+        Partition -->|Read-Only and Independent| PreExecPool["Asynchronous Shadow Pre-Execution Pool"]
+        Partition -->|State-Mutating or Dependent| StagingBuffer["Staged Action Buffer (Gated)"]
     end
 
     subgraph ShadowExecution["Shadow Pre-Execution"]
@@ -106,8 +106,8 @@ flowchart TD
         Verifier --> AcceptanceEngine{"Validate Step k in 1..K"}
     end
 
-    AcceptanceEngine -->|Accepted Steps 1..M| CommitManager["Commit Manager (Applies State Mutators)"]
-    AcceptanceEngine -->|Divergence at Step M+1| Truncate["Discard Tail (M+1..K) & Branch"]
+    AcceptanceEngine -->|Accepted Steps Prefix| CommitManager["Commit Manager (Applies State Mutators)"]
+    AcceptanceEngine -->|Divergence at Step M+1| Truncate["Discard Tail and Branch"]
 
     CommitManager --> ProdState["Production System State"]
     Truncate -.->|Feedback Context| DraftEngine
@@ -125,14 +125,14 @@ sequenceDiagram
     participant Prod as Production State
 
     App->>SLM: Draft Trajectory for Task (Lookahead K=3)
-    SLM-->>App: Emit DAG: [A1 (Read), A2 (Read), A3 (Write)]
+    SLM-->>App: Emit Plan DAG: A1 (Read), A2 (Read), A3 (Write)
     
     par Async Tool Pre-Fetch
         App->>Shadow: Dispatch A1 (Fetch Logs)
         App->>Shadow: Dispatch A2 (Fetch Metrics)
-        Shadow-->>App: Buffer Obs1 & Obs2
+        Shadow-->>App: Buffer Obs1 and Obs2
     and Parallel Frontier Verification
-        App->>Verifier: Validate [A1, A2, A3] with Drafted Assumptions
+        App->>Verifier: Validate Plan with Drafted Assumptions
         Verifier-->>App: Accept A1, Accept A2, Reject A3 (Constraint Violation)
     end
 
