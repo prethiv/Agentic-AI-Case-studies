@@ -78,3 +78,8 @@ nav:
       - "09 - Matrix-Based Agentic Reasoning": case-studies/09-matrix-reasoning-latent-agent-state/README.md
       - "10 - Structured ReAct Systems via Jev": case-studies/10-jev-structured-react-systems/README.md
       - "11 - Hybrid Swarm Delegation & Blackboard": case-studies/11-hybrid-swarm-delegation-blackboard/README.md
+      - "12 - Agentic Test-Time Compute (MCTS & PRMs)": case-studies/12-agentic-test-time-compute-mcts/README.md
+      - "13 - Speculative Agent Execution": case-studies/13-speculative-agent-execution/README.md
+      - "14 - Dynamic Tool Genesis & JIT Synthesis": case-studies/14-dynamic-tool-genesis-jit-synthesis/README.md
+      - "15 - Deterministic Event-Sourced Agent Replay": case-studies/15-deterministic-event-sourced-replay/README.md
+

@@ -43,9 +43,17 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
     │   └── README.md                                     # Replacing text scratchpads with adjacency matrix operations & GEMM planning
     ├── 10-jev-structured-react-systems/                  # Case Study 10: Structured ReAct Systems via Jev (TypeSafe AI)
     │   └── README.md                                     # Fast System 1 primitives, dynamic model routing, risk gating & observation compaction
-    └── 11-hybrid-swarm-delegation-blackboard/            # Case Study 11: Hybrid Hierarchical Delegation & Stigmergic Blackboard Swarming
-        ├── README.md                                     # In-depth architectural blueprint, formal models, failure matrix & OTel spans
-        └── examples/                                     # Complete executable reference architecture & unit tests
+    ├── 11-hybrid-swarm-delegation-blackboard/            # Case Study 11: Hybrid Hierarchical Delegation & Stigmergic Blackboard Swarming
+    │   ├── README.md                                     # In-depth architectural blueprint, formal models, failure matrix & OTel spans
+    │   └── examples/                                     # Complete executable reference architecture & unit tests
+    ├── 12-agentic-test-time-compute-mcts/                # Case Study 12: Agentic Test-Time Compute (MCTS & PRMs)
+    │   └── README.md                                     # Scaling test-time compute, Process Reward Models, and UCT shadow rollouts
+    ├── 13-speculative-agent-execution/                   # Case Study 13: Speculative Agent Execution
+    │   └── README.md                                     # Multi-draft edge SLMs, causal dependency DAG staging & frontier verification
+    ├── 14-dynamic-tool-genesis-jit-synthesis/            # Case Study 14: Dynamic Tool Genesis & JIT Synthesis
+    │   └── README.md                                     # Autonomous micro-tool generation, ephemeral sandboxing & runtime MCP hot-reload
+    └── 15-deterministic-event-sourced-replay/            # Case Study 15: Deterministic Event-Sourced Agent Replay
+        └── README.md                                     # Causal state ledgers, time-travel debugging & counterfactual branch forking
 ```
 
 ---
@@ -65,6 +73,10 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
 | **09** | [Matrix-Based Agentic Reasoning](case-studies/09-matrix-reasoning-latent-agent-state/README.md) | Replacing discrete text scratchpads with continuous state matrices, causal adjacency tensors, and GPU GEMM reachability | 💡 Conceptualized |
 | **10** | [Structured ReAct Systems via Jev](case-studies/10-jev-structured-react-systems/README.md) | Fast System 1 decision primitives (Noul, Choice, Score), dynamic model routing, pre-action risk gating, observation compaction & Pydantic AI TypeSafeModel | 💡 Conceptualized |
 | **11** | [Hybrid Swarm Delegation & Stigmergic Blackboard](case-studies/11-hybrid-swarm-delegation-blackboard/README.md) | Hybrid hierarchical routing + stigmergic shared memory, Contract Net Protocol (CNP) task auctioning, DAG cycle & depth guards, and scoped Handoff Tokens | 💡 Conceptualized |
+| **12** | [Agentic Test-Time Compute (MCTS & PRMs)](case-studies/12-agentic-test-time-compute-mcts/README.md) | Scaling test-time compute, Process Reward Models (PRMs), UCT exploration-exploitation, and backtracking over dead-end tool states | 💡 Conceptualized |
+| **13** | [Speculative Agent Execution](case-studies/13-speculative-agent-execution/README.md) | Multi-draft edge SLM planning, causal dependency DAG staging, parallel shadow pre-execution, and single-pass frontier verification | 💡 Conceptualized |
+| **14** | [Dynamic Tool Genesis & JIT Synthesis](case-studies/14-dynamic-tool-genesis-jit-synthesis/README.md) | Autonomous micro-tool synthesis, ephemeral sandbox unit-testing, and live Model Context Protocol (MCP) hot-registration | 💡 Conceptualized |
+| **15** | [Deterministic Event-Sourced Agent Replay](case-studies/15-deterministic-event-sourced-replay/README.md) | Causal event ledgers, zero-cost offline reproduction, time-travel debugging, and counterfactual trajectory forking | 💡 Conceptualized |
 
 ---
 
