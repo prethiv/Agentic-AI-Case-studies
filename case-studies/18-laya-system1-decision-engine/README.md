@@ -81,6 +81,7 @@ Laya models this with two discrete marker tokens `[MASK] false_label ... [MASK] 
 $$p_{\text{true}} = \frac{e^{z_{\text{true}} / T_{\text{noul}}}}{e^{z_{\text{false}} / T_{\text{noul}}} + e^{z_{\text{true}} / T_{\text{noul}}}}$$
 
 A threshold $\tau \in [0, 1]$ enables deterministic execution branching without prompt ambiguity:
+
 $$\text{Branch} = \begin{cases} \text{Execute Tool} & \text{if } \text{Noul}(\text{is\_safe}, S) \ge 0.85 \\ \text{Escalate to HITL} & \text{otherwise} \end{cases}$$
 
 #### 2. The Choice Primitive (Categorical Selection over Candidate Sets)
@@ -198,8 +199,8 @@ Directing every prompt to a frontier model (Claude 3.5 Sonnet / GPT-4o) wastes c
 flowchart LR
     Request["Incoming Request"] --> LayaRouter["Laya Ingress Router<br/>(router_questions preset)"]
     LayaRouter --> D{"Difficulty Score"}
-    D -->|Score < 1.5 (Trivial/Lookup)| SLM["Edge SLM / Local Model<br/>(Qwen 2.5 7B / Llama 3.2 3B)"]
-    D -->|Score ≥ 1.5 (Multi-step Reasoning)| Frontier["Frontier Deliberative LLM<br/>(Claude 3.5 Sonnet / GPT-4o)"]
+    D -->|"Score < 1.5 (Trivial/Lookup)"| SLM["Edge SLM / Local Model<br/>(Qwen 2.5 7B / Llama 3.2 3B)"]
+    D -->|"Score >= 1.5 (Multi-step Reasoning)"| Frontier["Frontier Deliberative LLM<br/>(Claude 3.5 Sonnet / GPT-4o)"]
 ```
 
 ### Pattern 2: Tool-Call Risk Gating & Execution Boundaries
@@ -568,7 +569,7 @@ res = agent.predict(state={"prompt": "test input"}, questions=guard_questions())
 
 | Operational Risk | Root Cause | Architectural Mitigation in Laya |
 |---|---|---|
-| **Head Budget Option Truncation** | When criteria labels exceed `head_max_len` (default 192 tokens), option text is aggressively truncated. | Implement `predict_shortlist` with embedding cosine pre-filtering when options count $K > 20$. |
+| **Head Budget Option Truncation** | When criteria labels exceed `head_max_len` (default 192 tokens), option text is aggressively truncated. | Implement `predict_shortlist` with embedding cosine pre-filtering when options count $K \gt 20$. |
 | **Language Family Accuracy Collapse** | Running English checkpoint (`convaiinnovations/laya`) on non-Latin scripts causes accuracy drop from 78% to 10%. | Always initialize via `Router(auto_language_routing=True)` to dispatch non-English text to `convaiinnovations/laya-multilingual`. |
 | **Overconfident Out-of-Distribution Calibration** | Unseen domain structures can produce high confidence on incorrect classes. | Inspect `answer_confidence` alongside raw probabilities; configure `min_confidence=0.75` for automated abstention and human escalation. |
 | **GPU Out-Of-Memory Under Spikes** | Massive input payloads collated into batch dimensions exceed VRAM limits. | Laya’s `_infer` engine includes automatic scoped CPU fallback (`_OOM_FALLBACK_LOCK`) with automatic device restoration. |
