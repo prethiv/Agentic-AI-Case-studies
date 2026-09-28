@@ -81,6 +81,26 @@ class TestMarkdownMathSyntax(unittest.TestCase):
             f"Found unescaped '>' in math mode (use \\gt to prevent HTML escaping):\n" + "\n".join(violations),
         )
 
+    def test_no_unsupported_mathjax_macros(self):
+        """Macros like \\xrightleftharpoons from non-standard LaTeX packages must not be used."""
+        unsupported = ["\\xrightleftharpoons"]
+        violations = []
+        for root, _, files in os.walk(CASE_STUDIES_DIR):
+            for file in files:
+                if file.endswith(".md"):
+                    path = os.path.join(root, file)
+                    rel_path = os.path.relpath(path, REPO_ROOT)
+                    with open(path, "r", encoding="utf-8") as f:
+                        for line_num, line in enumerate(f, 1):
+                            for macro in unsupported:
+                                if macro in line:
+                                    violations.append(f"{rel_path}:{line_num}: {line.strip()}")
+        self.assertEqual(
+            violations,
+            [],
+            f"Found unsupported MathJax macros in markdown files (use standard \\overset/\\underset):\n" + "\n".join(violations),
+        )
+
     def test_case_study_11_equations_structure(self):
         """Case study 11 must contain required math blocks formatted on isolated lines."""
         readme_path = os.path.join(CASE_STUDIES_DIR, "11-hybrid-swarm-delegation-blackboard", "README.md")
@@ -304,6 +324,26 @@ class TestBuiltSiteIntegrity(unittest.TestCase):
             with open(html_path, "r", encoding="utf-8") as f:
                 html = f.read()
             self.assertIn('class="mermaid"', html, f"Case study {num} HTML missing mermaid containers")
+
+    def test_no_unrendered_latex_macros_in_html(self):
+        """Built HTML must not contain unrendered LaTeX macro strings like \\xrightleftharpoons."""
+        bad_macros = ["\\xrightleftharpoons"]
+        violations = []
+        for root, _, files in os.walk(SITE_DIR):
+            for file in files:
+                if file.endswith(".html"):
+                    path = os.path.join(root, file)
+                    rel_path = os.path.relpath(path, REPO_ROOT)
+                    with open(path, "r", encoding="utf-8") as f:
+                        content = f.read()
+                    for m in bad_macros:
+                        if m in content:
+                            violations.append(f"{rel_path}: {m}")
+        self.assertEqual(
+            violations,
+            [],
+            f"Found unrendered LaTeX macros in built HTML (MathJax parser failure):\n" + "\n".join(violations),
+        )
 
 
 if __name__ == "__main__":

@@ -37,7 +37,7 @@ However, operating purely within a terminal presents deep ergonomic, cognitive, 
 This case study designs an end-to-end architecture to transform OpenCode from an isolated terminal tool into a **first-class, multi-client agentic daemon and native IDE ecosystem**:
 
 $$
-\text{Editor Telemetry (LSP + AST)} \xrightleftharpoons[\text{JSON-RPC / Named Pipes}]{\text{Event Stream}} \text{OpenCode Daemon} \xrightleftharpoons[\text{Virtual Diff Engine}]{\text{Dynamic Routing}} \text{Multi-Agent Swarm / Local SLMs}
+\text{Editor Telemetry (LSP + AST)} \;\underset{\text{JSON-RPC / Named Pipes}}{\overset{\text{Event Stream}}{\rightleftharpoons}}\; \text{OpenCode Daemon} \;\underset{\text{Virtual Diff Engine}}{\overset{\text{Dynamic Routing}}{\rightleftharpoons}}\; \text{Multi-Agent Swarm / Local SLMs}
 $$
 
 By decoupling the cognitive agent engine from the presentation layer and introducing an in-memory virtual diff staging engine, developers gain the speed of autonomous terminal agents paired with the visual precision and safety of native IDE integration.

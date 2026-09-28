@@ -35,7 +35,7 @@ Enterprise adoption of Generative AI has transitioned from isolated chatbots to 
 Rather than relying on human compliance committees or rigid perimeter firewalls, this case study architects a self-healing **Agentic Governance Mesh**: an intelligent supervisory layer consisting of a high-throughput **Sentinel Proxy** and a fleet of autonomous **Governance Subagents** armed with custom inspection, verification, and remediation tools.
 
 $$
-\text{Agent Intent} \xrightarrow{\text{MCP Request}} \text{Sentinel Proxy (OPA + PII Redaction)} \xrightleftharpoons[\text{Autonomous Verification}]{\text{Dynamic Custom Tools}} \text{Target Enterprise API / MCP Server}
+\text{Agent Intent} \xrightarrow{\text{MCP Request}} \text{Sentinel Proxy (OPA + PII Redaction)} \;\underset{\text{Dynamic Custom Tools}}{\overset{\text{Autonomous Verification}}{\rightleftharpoons}}\; \text{Target Enterprise API / MCP Server}
 $$
 
 ---
