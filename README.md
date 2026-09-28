@@ -52,8 +52,12 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
     │   └── README.md                                     # Multi-draft edge SLMs, causal dependency DAG staging & frontier verification
     ├── 14-dynamic-tool-genesis-jit-synthesis/            # Case Study 14: Dynamic Tool Genesis & JIT Synthesis
     │   └── README.md                                     # Autonomous micro-tool generation, ephemeral sandboxing & runtime MCP hot-reload
-    └── 15-deterministic-event-sourced-replay/            # Case Study 15: Deterministic Event-Sourced Agent Replay
-        └── README.md                                     # Causal state ledgers, time-travel debugging & counterfactual branch forking
+    ├── 15-deterministic-event-sourced-replay/            # Case Study 15: Deterministic Event-Sourced Agent Replay
+    │   └── README.md                                     # Causal state ledgers, time-travel debugging & counterfactual branch forking
+    ├── 16-opencode-native-ide-harness-architecture/      # Case Study 16: Harnessing OpenCode as Native IDE Plugins
+    │   └── README.md                                     # Headless daemon RPC, LSP telemetry sync, virtual diff staging & agent swarms
+    └── 17-agentic-enterprise-governance-mcp-api/         # Case Study 17: Agentic AI-Driven Enterprise Governance
+        └── README.md                                     # Automated policy enforcement, custom tool mesh, OPA/ABAC gating & red-teaming
 ```
 
 ---
@@ -77,6 +81,8 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
 | **13** | [Speculative Agent Execution](case-studies/13-speculative-agent-execution/README.md) | Multi-draft edge SLM planning, causal dependency DAG staging, parallel shadow pre-execution, and single-pass frontier verification | 💡 Conceptualized |
 | **14** | [Dynamic Tool Genesis & JIT Synthesis](case-studies/14-dynamic-tool-genesis-jit-synthesis/README.md) | Autonomous micro-tool synthesis, ephemeral sandbox unit-testing, and live Model Context Protocol (MCP) hot-registration | 💡 Conceptualized |
 | **15** | [Deterministic Event-Sourced Agent Replay](case-studies/15-deterministic-event-sourced-replay/README.md) | Causal event ledgers, zero-cost offline reproduction, time-travel debugging, and counterfactual trajectory forking | 💡 Conceptualized |
+| **16** | [Harnessing OpenCode as Native IDE Plugins](case-studies/16-opencode-native-ide-harness-architecture/README.md) | Headless daemon RPC runtime, live LSP & cursor telemetry sync, in-memory virtual diff staging (`opencode-diff://`), hierarchical subagents & model routing | 💡 Conceptualized |
+| **17** | [Agentic Enterprise Governance for API & MCP](case-studies/17-agentic-enterprise-governance-mcp-api/README.md) | Autonomous Sentinel Proxy, inline OPA / ABAC gating, real-time PII scrubbing, continuous adversarial red-teaming & schema drift auto-remediation | 💡 Conceptualized |
 
 ---
 

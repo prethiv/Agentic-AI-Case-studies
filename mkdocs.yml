@@ -82,4 +82,6 @@ nav:
       - "13 - Speculative Agent Execution": case-studies/13-speculative-agent-execution/README.md
       - "14 - Dynamic Tool Genesis & JIT Synthesis": case-studies/14-dynamic-tool-genesis-jit-synthesis/README.md
       - "15 - Deterministic Event-Sourced Agent Replay": case-studies/15-deterministic-event-sourced-replay/README.md
+      - "16 - Harnessing OpenCode as Native IDE Plugins": case-studies/16-opencode-native-ide-harness-architecture/README.md
+      - "17 - Agentic Enterprise Governance for API & MCP": case-studies/17-agentic-enterprise-governance-mcp-api/README.md
 
