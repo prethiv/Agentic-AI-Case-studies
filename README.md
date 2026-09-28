@@ -56,8 +56,10 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
     │   └── README.md                                     # Causal state ledgers, time-travel debugging & counterfactual branch forking
     ├── 16-opencode-native-ide-harness-architecture/      # Case Study 16: Harnessing OpenCode as Native IDE Plugins
     │   └── README.md                                     # Headless daemon RPC, LSP telemetry sync, virtual diff staging & agent swarms
-    └── 17-agentic-enterprise-governance-mcp-api/         # Case Study 17: Agentic AI-Driven Enterprise Governance
-        └── README.md                                     # Automated policy enforcement, custom tool mesh, OPA/ABAC gating & red-teaming
+    ├── 17-agentic-enterprise-governance-mcp-api/         # Case Study 17: Agentic AI-Driven Enterprise Governance
+    │   └── README.md                                     # Automated policy enforcement, custom tool mesh, OPA/ABAC gating & red-teaming
+    └── 18-laya-system1-decision-engine/                  # Case Study 18: Open-Source System 1 Decision Engines via Laya
+        └── README.md                                     # Non-autoregressive ModernBERT decision heads, dual-process ReAct, embedding shortlists & local governance
 ```
 
 ---
@@ -83,6 +85,7 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
 | **15** | [Deterministic Event-Sourced Agent Replay](case-studies/15-deterministic-event-sourced-replay/README.md) | Causal event ledgers, zero-cost offline reproduction, time-travel debugging, and counterfactual trajectory forking | 💡 Conceptualized |
 | **16** | [Harnessing OpenCode as Native IDE Plugins](case-studies/16-opencode-native-ide-harness-architecture/README.md) | Headless daemon RPC runtime, live LSP & cursor telemetry sync, in-memory virtual diff staging (`opencode-diff://`), hierarchical subagents & model routing | 💡 Conceptualized |
 | **17** | [Agentic Enterprise Governance for API & MCP](case-studies/17-agentic-enterprise-governance-mcp-api/README.md) | Autonomous Sentinel Proxy, inline OPA / ABAC gating, real-time PII scrubbing, continuous adversarial red-teaming & schema drift auto-remediation | 💡 Conceptualized |
+| **18** | [Open-Source System 1 Decision Engines via Laya](case-studies/18-laya-system1-decision-engine/README.md) | Non-autoregressive ModernBERT decision heads, dual-process ReAct primitives (Noul, Choice, Score), embedding shortlists, and local self-hosted governance | 💡 Conceptualized |
 
 ---
 

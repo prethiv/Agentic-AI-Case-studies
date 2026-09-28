@@ -84,4 +84,5 @@ nav:
       - "15 - Deterministic Event-Sourced Agent Replay": case-studies/15-deterministic-event-sourced-replay/README.md
       - "16 - Harnessing OpenCode as Native IDE Plugins": case-studies/16-opencode-native-ide-harness-architecture/README.md
       - "17 - Agentic Enterprise Governance for API & MCP": case-studies/17-agentic-enterprise-governance-mcp-api/README.md
+      - "18 - Open-Source System 1 Decision Engines via Laya": case-studies/18-laya-system1-decision-engine/README.md
 
