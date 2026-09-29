@@ -74,27 +74,37 @@ Laya formulates all judgments across three typed mathematical primitives, elimin
 #### 1. The Noul Primitive (Calibrated Boolean Verification)
 Given a state $S \in \mathcal{S}$ (raw text, JSON payload, or message array) and a proposition $q$, $\text{Noul}(q, S)$ outputs a calibrated scalar probability:
 
-$$\text{Noul}(q, S) \rightarrow p \in [0.0, 1.0], \quad \text{where } p = P(q = \text{true} \mid S)$$
+$$
+\text{Noul}(q, S) \rightarrow p \in [0.0, 1.0], \quad \text{where } p = P(q = \text{true} \mid S)
+$$
 
 Laya models this with two discrete marker tokens `[MASK] false_label ... [MASK] true_label`. The calibrated probability is computed via temperature-scaled softmax:
 
-$$p_{\text{true}} = \frac{e^{z_{\text{true}} / T_{\text{noul}}}}{e^{z_{\text{false}} / T_{\text{noul}}} + e^{z_{\text{true}} / T_{\text{noul}}}}$$
+$$
+p_{\text{true}} = \frac{e^{z_{\text{true}} / T_{\text{noul}}}}{e^{z_{\text{false}} / T_{\text{noul}}} + e^{z_{\text{true}} / T_{\text{noul}}}}
+$$
 
 A threshold $\tau \in [0, 1]$ enables deterministic execution branching without prompt ambiguity:
 
-$$\text{Branch} = \begin{cases} \text{Execute Tool} & \text{if } \text{Noul}(\text{is\_safe}, S) \ge 0.85 \\ \text{Escalate to HITL} & \text{otherwise} \end{cases}$$
+$$
+\text{Branch} = \begin{cases} \text{Execute Tool} & \text{if } \text{Noul}(\text{is\_safe}, S) \ge 0.85 \\ \text{Escalate to HITL} & \text{otherwise} \end{cases}
+$$
 
 #### 2. The Choice Primitive (Categorical Selection over Candidate Sets)
 Given a state $S$, a question $q$, and a finite closed candidate set $\mathcal{C} = \{c_1, c_2, \dots, c_K\}$:
 
-$$\text{Choice}(q, \mathcal{C}, S) \rightarrow \left( c^*, \{P(c_k \mid S)\}_{k=1}^K \right), \quad \text{where } c^* = \arg\max_{c_k \in \mathcal{C}} P(c_k \mid S)$$
+$$
+\text{Choice}(q, \mathcal{C}, S) \rightarrow \left( c^*, \{P(c_k \mid S)\}_{k=1}^K \right), \quad \text{where } c^* = \arg\max_{c_k \in \mathcal{C}} P(c_k \mid S)
+$$
 
 Because Laya places a `[MASK]` token before each candidate option in the input sequence, all $K$ candidates are evaluated in parallel in a single forward pass.
 
 #### 3. The Score Primitive (Rubric-Anchored Ordinal Evaluation)
 Given a state $S$ and an ordered discrete scale $\mathcal{R} = [0, 1, \dots, K-1]$:
 
-$$\text{Score}(q, \mathcal{R}, S) \rightarrow \left( \mathbb{E}[R], \{p_k\}_{k=0}^{K-1} \right), \quad \text{where } \mathbb{E}[R] = \sum_{k=0}^{K-1} k \cdot p_k$$
+$$
+\text{Score}(q, \mathcal{R}, S) \rightarrow \left( \mathbb{E}[R], \{p_k\}_{k=0}^{K-1} \right), \quad \text{where } \mathbb{E}[R] = \sum_{k=0}^{K-1} k \cdot p_k
+$$
 
 The score primitive provides both the continuous expectation $\mathbb{E}[R]$ and the discrete categorical distribution across severity levels.
 

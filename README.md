@@ -58,8 +58,22 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
     │   └── README.md                                     # Headless daemon RPC, LSP telemetry sync, virtual diff staging & agent swarms
     ├── 17-agentic-enterprise-governance-mcp-api/         # Case Study 17: Agentic AI-Driven Enterprise Governance
     │   └── README.md                                     # Automated policy enforcement, custom tool mesh, OPA/ABAC gating & red-teaming
-    └── 18-laya-system1-decision-engine/                  # Case Study 18: Open-Source System 1 Decision Engines via Laya
-        └── README.md                                     # Non-autoregressive ModernBERT decision heads, dual-process ReAct, embedding shortlists & local governance
+    ├── 18-laya-system1-decision-engine/                  # Case Study 18: Open-Source System 1 Decision Engines via Laya
+    │   └── README.md                                     # Non-autoregressive ModernBERT decision heads, dual-process ReAct, embedding shortlists & local governance
+    ├── 19-async-hitl-distributed-durable-suspension/     # Case Study 19: Asynchronous HITL via Durable Coroutines & Epoch Re-anchoring
+    │   └── README.md                                     # Distributed workflow engines, non-blocking coroutine suspension, Merkle state snapshots & drift reconciliation
+    ├── 20-token-budget-circuit-breakers-adaptive-decay/  # Case Study 20: Runaway Reasoning Circuit Breakers & Dynamic Context Decay
+    │   └── README.md                                     # Three-state circuit breakers (Closed/Open/Half-Open), velocity ceilings, exponential context decay & loop guards
+    ├── 21-a2a-zero-trust-capability-tokens/              # Case Study 21: Zero-Trust Agent-to-Agent (A2A) Capability Mesh & Macaroons
+    │   └── README.md                                     # Monotonic offline caveat attenuation, delegation chains, HMAC verification & Confused Deputy neutralization
+    ├── 22-ephemeral-microvm-agentic-sandbox/             # Case Study 22: Ephemeral MicroVM & eBPF Sandboxing for Dynamic Tool Execution
+    │   └── README.md                                     # Hardware-assisted KVM isolation, sub-5ms Copy-on-Write snapshots, eBPF host syscall probes & network gating
+    ├── 23-active-inference-entropy-directed-backtracking/# Case Study 23: Active Inference & Free-Energy Minimization in Agent Backtracking
+    │   └── README.md                                     # Expected Free Energy (EFE) minimization, epistemic vs pragmatic value decomposition & entropy search pruning
+    ├── 24-speculative-pre-computation-multi-mcp/         # Case Study 24: Speculative Tool Pipelining & Branch-Prediction across MCP Nodes
+    │   └── README.md                                     # Streaming prefix branch prediction, speculative shadow leases, atomic commits & side-effect rollback isolation
+    └── 25-byzantine-fault-tolerant-consensus-swarms/     # Case Study 25: Byzantine-Fault-Tolerant (BFT) Multi-Agent Consensus Verification
+        └── README.md                                     # 3f + 1 quorum thresholds, confidence-weighted voting, cryptographic commit ledgers & adversarial mitigation
 ```
 
 ---
@@ -86,6 +100,14 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
 | **16** | [Harnessing OpenCode as Native IDE Plugins](case-studies/16-opencode-native-ide-harness-architecture/README.md) | Headless daemon RPC runtime, live LSP & cursor telemetry sync, in-memory virtual diff staging (`opencode-diff://`), hierarchical subagents & model routing | 💡 Conceptualized |
 | **17** | [Agentic Enterprise Governance for API & MCP](case-studies/17-agentic-enterprise-governance-mcp-api/README.md) | Autonomous Sentinel Proxy, inline OPA / ABAC gating, real-time PII scrubbing, continuous adversarial red-teaming & schema drift auto-remediation | 💡 Conceptualized |
 | **18** | [Open-Source System 1 Decision Engines via Laya](case-studies/18-laya-system1-decision-engine/README.md) | Non-autoregressive ModernBERT decision heads, dual-process ReAct primitives (Noul, Choice, Score), embedding shortlists, and local self-hosted governance | 💡 Conceptualized |
+| **19** | [Asynchronous HITL via Durable Coroutines](case-studies/19-async-hitl-distributed-durable-suspension/README.md) | Durable coroutine suspension across unbounded delays, Merkle state versioning, epoch drift reconciliation, and non-blocking human escrow | 💡 Conceptualized |
+| **20** | [Runaway Reasoning Circuit Breakers & Adaptive Decay](case-studies/20-token-budget-circuit-breakers-adaptive-decay/README.md) | Finite token budget telemetry, Closed/Open/Half-Open state machines, instantaneous velocity ceilings, and exponential scratchpad decay | 💡 Conceptualized |
+| **21** | [Zero-Trust A2A Capability Mesh & Macaroons](case-studies/21-a2a-zero-trust-capability-tokens/README.md) | Monotonic cryptographic attenuation, delegation chains ($A \rightarrow B \rightarrow C$), caveat enforcement, and Confused Deputy neutralization | 💡 Conceptualized |
+| **22** | [Ephemeral MicroVM & eBPF Sandboxing](case-studies/22-ephemeral-microvm-agentic-sandbox/README.md) | Firecracker hardware-assisted KVM isolation, sub-5ms Copy-on-Write memory snapshots, host eBPF syscall tracing, and network egress gating | 💡 Conceptualized |
+| **23** | [Active Inference & Free-Energy Minimization](case-studies/23-active-inference-entropy-directed-backtracking/README.md) | Variational Free Energy, Expected Free Energy (EFE) decomposing into epistemic and instrumental value, and entropy-directed tree backtracking | 💡 Conceptualized |
+| **24** | [Speculative Tool Pipelining across Multi-MCP](case-studies/24-speculative-pre-computation-multi-mcp/README.md) | Breaking the sequential execution wall: streaming token prefix branch prediction, speculative shadow leases, and transactional rollback | 💡 Conceptualized |
+| **25** | [Byzantine-Fault-Tolerant Consensus Swarms](case-studies/25-byzantine-fault-tolerant-consensus-swarms/README.md) | $3f + 1$ quorum thresholds, confidence-weighted Self-Anchored Consensus (SAC), cryptographic vote aggregation, and adversarial filtering | 💡 Conceptualized |
+
 
 ---
 

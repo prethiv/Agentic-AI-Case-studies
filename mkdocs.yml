@@ -85,4 +85,10 @@ nav:
       - "16 - Harnessing OpenCode as Native IDE Plugins": case-studies/16-opencode-native-ide-harness-architecture/README.md
       - "17 - Agentic Enterprise Governance for API & MCP": case-studies/17-agentic-enterprise-governance-mcp-api/README.md
       - "18 - Open-Source System 1 Decision Engines via Laya": case-studies/18-laya-system1-decision-engine/README.md
-
+      - "19 - Asynchronous HITL via Durable Coroutines": case-studies/19-async-hitl-distributed-durable-suspension/README.md
+      - "20 - Runaway Reasoning Circuit Breakers": case-studies/20-token-budget-circuit-breakers-adaptive-decay/README.md
+      - "21 - Zero-Trust A2A Capability Mesh & Macaroons": case-studies/21-a2a-zero-trust-capability-tokens/README.md
+      - "22 - Ephemeral MicroVM & eBPF Sandboxing": case-studies/22-ephemeral-microvm-agentic-sandbox/README.md
+      - "23 - Active Inference & Free-Energy Minimization": case-studies/23-active-inference-entropy-directed-backtracking/README.md
+      - "24 - Speculative Tool Pipelining across Multi-MCP": case-studies/24-speculative-pre-computation-multi-mcp/README.md
+      - "25 - Byzantine-Fault-Tolerant Consensus Swarms": case-studies/25-byzantine-fault-tolerant-consensus-swarms/README.md
