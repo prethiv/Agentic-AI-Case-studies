@@ -92,3 +92,4 @@ nav:
       - "23 - Active Inference & Free-Energy Minimization": case-studies/23-active-inference-entropy-directed-backtracking/README.md
       - "24 - Speculative Tool Pipelining across Multi-MCP": case-studies/24-speculative-pre-computation-multi-mcp/README.md
       - "25 - Byzantine-Fault-Tolerant Consensus Swarms": case-studies/25-byzantine-fault-tolerant-consensus-swarms/README.md
+      - "26 - Thinking Before Thinking (Meta-Reasoning)": case-studies/26-agentic-meta-reasoning-thinking-before-thinking/README.md

@@ -72,8 +72,11 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
     │   └── README.md                                     # Expected Free Energy (EFE) minimization, epistemic vs pragmatic value decomposition & entropy search pruning
     ├── 24-speculative-pre-computation-multi-mcp/         # Case Study 24: Speculative Tool Pipelining & Branch-Prediction across MCP Nodes
     │   └── README.md                                     # Streaming prefix branch prediction, speculative shadow leases, atomic commits & side-effect rollback isolation
-    └── 25-byzantine-fault-tolerant-consensus-swarms/     # Case Study 25: Byzantine-Fault-Tolerant (BFT) Multi-Agent Consensus Verification
-        └── README.md                                     # 3f + 1 quorum thresholds, confidence-weighted voting, cryptographic commit ledgers & adversarial mitigation
+    ├── 25-byzantine-fault-tolerant-consensus-swarms/     # Case Study 25: Byzantine-Fault-Tolerant (BFT) Multi-Agent Consensus Verification
+    │   └── README.md                                     # 3f + 1 quorum thresholds, confidence-weighted voting, cryptographic commit ledgers & adversarial mitigation
+    └── 26-agentic-meta-reasoning-thinking-before-thinking/# Case Study 26: Thinking Before Thinking — Agentic Meta-Reasoning & Inference Scaling
+        ├── README.md                                     # Decoupled 4-stage metacognitive control (Assess, Propose, Evaluate, Dispatch), DAG artifact memory & Type-2 AUC
+        └── examples/                                     # Fully executable reference pipeline and metrics verification runner
 ```
 
 ---
@@ -107,8 +110,7 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
 | **23** | [Active Inference & Free-Energy Minimization](case-studies/23-active-inference-entropy-directed-backtracking/README.md) | Variational Free Energy, Expected Free Energy (EFE) decomposing into epistemic and instrumental value, and entropy-directed tree backtracking | 💡 Conceptualized |
 | **24** | [Speculative Tool Pipelining across Multi-MCP](case-studies/24-speculative-pre-computation-multi-mcp/README.md) | Breaking the sequential execution wall: streaming token prefix branch prediction, speculative shadow leases, and transactional rollback | 💡 Conceptualized |
 | **25** | [Byzantine-Fault-Tolerant Consensus Swarms](case-studies/25-byzantine-fault-tolerant-consensus-swarms/README.md) | $3f + 1$ quorum thresholds, confidence-weighted Self-Anchored Consensus (SAC), cryptographic vote aggregation, and adversarial filtering | 💡 Conceptualized |
-
-
+| **26** | [Thinking Before Thinking: Agentic Meta-Reasoning](case-studies/26-agentic-meta-reasoning-thinking-before-thinking/README.md) | Decoupled 4-stage metacognitive control loop (Assess, Propose, Evaluate, Dispatch), persistent DAG artifact memory, Type-2 AUC self-monitoring, and inference scaling | 💡 Conceptualized |
 ---
 
 ## 🧭 Upcoming Case Study Brainstorms
