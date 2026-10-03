@@ -74,9 +74,12 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
     │   └── README.md                                     # Streaming prefix branch prediction, speculative shadow leases, atomic commits & side-effect rollback isolation
     ├── 25-byzantine-fault-tolerant-consensus-swarms/     # Case Study 25: Byzantine-Fault-Tolerant (BFT) Multi-Agent Consensus Verification
     │   └── README.md                                     # 3f + 1 quorum thresholds, confidence-weighted voting, cryptographic commit ledgers & adversarial mitigation
-    └── 26-agentic-meta-reasoning-thinking-before-thinking/# Case Study 26: Thinking Before Thinking — Agentic Meta-Reasoning & Inference Scaling
-        ├── README.md                                     # Decoupled 4-stage metacognitive control (Assess, Propose, Evaluate, Dispatch), DAG artifact memory & Type-2 AUC
-        └── examples/                                     # Fully executable reference pipeline and metrics verification runner
+    ├── 26-agentic-meta-reasoning-thinking-before-thinking/# Case Study 26: Thinking Before Thinking — Agentic Meta-Reasoning & Inference Scaling
+    │   ├── README.md                                     # Decoupled 4-stage metacognitive control (Assess, Propose, Evaluate, Dispatch), DAG artifact memory & Type-2 AUC
+    │   └── examples/                                     # Fully executable reference pipeline and metrics verification runner
+    └── 27-autonomous-reflection-loops-graph-backtracking/# Case Study 27: Autonomous Reflection Loops & Directed Graph Backtracking
+        ├── README.md                                     # Trajectory DAGs, causal error categorization, clean context pruning, and negative constraint ledgers
+        └── examples/                                     # Fully executable reference pipeline with anti-loop budgeting and saga compensation
 ```
 
 ---
@@ -111,13 +114,14 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
 | **24** | [Speculative Tool Pipelining across Multi-MCP](case-studies/24-speculative-pre-computation-multi-mcp/README.md) | Breaking the sequential execution wall: streaming token prefix branch prediction, speculative shadow leases, and transactional rollback | 💡 Conceptualized |
 | **25** | [Byzantine-Fault-Tolerant Consensus Swarms](case-studies/25-byzantine-fault-tolerant-consensus-swarms/README.md) | $3f + 1$ quorum thresholds, confidence-weighted Self-Anchored Consensus (SAC), cryptographic vote aggregation, and adversarial filtering | 💡 Conceptualized |
 | **26** | [Thinking Before Thinking: Agentic Meta-Reasoning](case-studies/26-agentic-meta-reasoning-thinking-before-thinking/README.md) | Decoupled 4-stage metacognitive control loop (Assess, Propose, Evaluate, Dispatch), persistent DAG artifact memory, Type-2 AUC self-monitoring, and inference scaling | 💡 Conceptualized |
+| **27** | [Autonomous Reflection Loops & Directed Graph Backtracking](case-studies/27-autonomous-reflection-loops-graph-backtracking/README.md) | Trajectory DAGs, causal error categorization, clean context pruning, and negative constraint ledgers | 💡 Conceptualized |
 ---
 
 ## 🧭 Upcoming Case Study Brainstorms
 
 - **Multi-Agent Orchestration & Protocol Handoffs**: Standardized protocols (A2A) vs shared blackboard state machines.
 - **Human-in-the-Loop (HITL) Gateways**: Non-blocking asynchronous approvals and safety checkpoints.
-- **Self-Correction & Autonomous Reflection Loops**: When and how agents backtrack reliably without runaway token burn.
+- **Hierarchical Self-Play & Synthetic Trajectory Distillation**: Automated bootstrapping of specialized worker policies.
 - **Agentic Sandboxing & Tool Boundary Security**: Isolating arbitrary code and CLI execution in local/edge runtimes.
 
 ---

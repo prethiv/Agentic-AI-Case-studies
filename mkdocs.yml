@@ -93,3 +93,4 @@ nav:
       - "24 - Speculative Tool Pipelining across Multi-MCP": case-studies/24-speculative-pre-computation-multi-mcp/README.md
       - "25 - Byzantine-Fault-Tolerant Consensus Swarms": case-studies/25-byzantine-fault-tolerant-consensus-swarms/README.md
       - "26 - Thinking Before Thinking (Meta-Reasoning)": case-studies/26-agentic-meta-reasoning-thinking-before-thinking/README.md
+      - "27 - Autonomous Reflection Loops & Directed Graph Backtracking": case-studies/27-autonomous-reflection-loops-graph-backtracking/README.md
