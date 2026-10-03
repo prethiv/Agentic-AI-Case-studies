@@ -77,9 +77,12 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
     ├── 26-agentic-meta-reasoning-thinking-before-thinking/# Case Study 26: Thinking Before Thinking — Agentic Meta-Reasoning & Inference Scaling
     │   ├── README.md                                     # Decoupled 4-stage metacognitive control (Assess, Propose, Evaluate, Dispatch), DAG artifact memory & Type-2 AUC
     │   └── examples/                                     # Fully executable reference pipeline and metrics verification runner
-    └── 27-autonomous-reflection-loops-graph-backtracking/# Case Study 27: Autonomous Reflection Loops & Directed Graph Backtracking
-        ├── README.md                                     # Trajectory DAGs, causal error categorization, clean context pruning, and negative constraint ledgers
-        └── examples/                                     # Fully executable reference pipeline with anti-loop budgeting and saga compensation
+    ├── 27-autonomous-reflection-loops-graph-backtracking/# Case Study 27: Autonomous Reflection Loops & Directed Graph Backtracking
+    │   ├── README.md                                     # Trajectory DAGs, causal error categorization, clean context pruning, and negative constraint ledgers
+    │   └── examples/                                     # Fully executable reference pipeline with anti-loop budgeting and saga compensation
+    └── 28-modern-llm-agent-training-lifecycle/           # Case Study 28: Modern LLM & Agent Training Lifecycles
+        ├── README.md                                     # Multi-turn loss masking, DPO alignment, GRPO verifiable rewards & sandboxed grounding
+        └── examples/                                     # Fully executable reference pipeline for SFT loss masking and GRPO advantage estimation
 ```
 
 ---
@@ -115,6 +118,7 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
 | **25** | [Byzantine-Fault-Tolerant Consensus Swarms](case-studies/25-byzantine-fault-tolerant-consensus-swarms/README.md) | $3f + 1$ quorum thresholds, confidence-weighted Self-Anchored Consensus (SAC), cryptographic vote aggregation, and adversarial filtering | 💡 Conceptualized |
 | **26** | [Thinking Before Thinking: Agentic Meta-Reasoning](case-studies/26-agentic-meta-reasoning-thinking-before-thinking/README.md) | Decoupled 4-stage metacognitive control loop (Assess, Propose, Evaluate, Dispatch), persistent DAG artifact memory, Type-2 AUC self-monitoring, and inference scaling | 💡 Conceptualized |
 | **27** | [Autonomous Reflection Loops & Directed Graph Backtracking](case-studies/27-autonomous-reflection-loops-graph-backtracking/README.md) | Trajectory DAGs, causal error categorization, clean context pruning, and negative constraint ledgers | 💡 Conceptualized |
+| **28** | [Modern LLM & Agent Training Lifecycles](case-studies/28-modern-llm-agent-training-lifecycle/README.md) | Multi-turn loss masking, DPO alignment, GRPO verifiable rewards & sandboxed tool grounding | 💡 Conceptualized |
 ---
 
 ## 🧭 Upcoming Case Study Brainstorms

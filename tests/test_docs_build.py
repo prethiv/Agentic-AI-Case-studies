@@ -122,9 +122,9 @@ class TestMarkdownMathSyntax(unittest.TestCase):
         blocks = block_pattern.findall(content)
         self.assertGreaterEqual(len(blocks), 4, f"Expected at least 4 display math blocks in Case Study 11, found {len(blocks)}")
 
-    def test_newly_added_case_studies_12_to_27_math_structure(self):
-        """Case studies 12 through 27 must contain required display math blocks formatted on isolated lines."""
-        for num in [str(i) for i in range(12, 28)]:
+    def test_newly_added_case_studies_12_to_28_math_structure(self):
+        """Case studies 12 through 28 must contain required display math blocks formatted on isolated lines."""
+        for num in [str(i) for i in range(12, 29)]:
             matches = [d for d in os.listdir(CASE_STUDIES_DIR) if d.startswith(f"{num}-")]
             self.assertTrue(len(matches) > 0, f"Case study {num} directory not found")
             readme_path = os.path.join(CASE_STUDIES_DIR, matches[0], "README.md")
@@ -245,9 +245,9 @@ class TestBuiltSiteIntegrity(unittest.TestCase):
             prepare_docs()
             run_mkdocs_build()
 
-    def test_all_twenty_seven_case_studies_generated(self):
-        """Every case study (01 through 27) must have a built index.html."""
-        for i in range(1, 28):
+    def test_all_twenty_eight_case_studies_generated(self):
+        """Every case study (01 through 28) must have a built index.html."""
+        for i in range(1, 29):
             prefix = f"{i:02d}-"
             matches = [d for d in os.listdir(os.path.join(SITE_DIR, "case-studies")) if d.startswith(prefix)]
             self.assertTrue(len(matches) > 0, f"Case study {prefix} directory not found in site/")
@@ -316,8 +316,8 @@ class TestBuiltSiteIntegrity(unittest.TestCase):
         self.assertIn('<div class="arithmatex">\\[ \\tau_k(t + 1) = \\max', norm_html)
 
     def test_case_studies_mermaid_containers_rendered(self):
-        """Case studies 12 through 27 built HTML must contain valid rendered mermaid containers."""
-        for num in [f"{i:02d}" for i in range(12, 28)]:
+        """Case studies 12 through 28 built HTML must contain valid rendered mermaid containers."""
+        for num in [f"{i:02d}" for i in range(12, 29)]:
             matches = [d for d in os.listdir(os.path.join(SITE_DIR, "case-studies")) if d.startswith(f"{num}-")]
             self.assertTrue(len(matches) > 0, f"Site directory for case study {num} not found")
             html_path = os.path.join(SITE_DIR, "case-studies", matches[0], "index.html")
