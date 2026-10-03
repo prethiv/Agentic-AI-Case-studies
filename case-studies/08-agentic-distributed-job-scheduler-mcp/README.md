@@ -390,7 +390,7 @@ class AgenticBatchWorker:
 
 ## 8. Related Case Studies & Architectural Synergy
 
-- [Case Study 04: Resilient ReAct Production Architecture & Blueprint](case-studies/04-resilient-react-production-architecture/README.md) - Autonomous ReAct execution loops with cycle detection and sandboxing.
-- [Case Study 05: Harnessing Small Language Models on Edge Devices](case-studies/05-slm-edge-device-harnessing/README.md) - Edge SLM runtime harnesses for low-latency pre-hook prompt sanitization.
-- [Case Study 06: SLM-as-a-Judge via Git Pre-Hooks & llama-cli](case-studies/06-git-prehooks-slm-judge/README.md) - Local pre-commit and pre-execution filtering patterns.
-- [Case Study 07: Semantic Observability & Telemetry Patterns](case-studies/07-agentic-observability-patterns/README.md) - Distributed tracing, OpenTelemetry GenAI spans, and state-delta ledgers for batch workers.
+- [Case Study 04: Resilient ReAct Production Architecture & Blueprint](../04-resilient-react-production-architecture/README.md) - Autonomous ReAct execution loops with cycle detection and sandboxing.
+- [Case Study 05: Harnessing Small Language Models on Edge Devices](../05-slm-edge-device-harnessing/README.md) - Edge SLM runtime harnesses for low-latency pre-hook prompt sanitization.
+- [Case Study 06: SLM-as-a-Judge via Git Pre-Hooks & llama-cli](../06-git-prehooks-slm-judge/README.md) - Local pre-commit and pre-execution filtering patterns.
+- [Case Study 07: Semantic Observability & Telemetry Patterns](../07-agentic-observability-patterns/README.md) - Distributed tracing, OpenTelemetry GenAI spans, and state-delta ledgers for batch workers.

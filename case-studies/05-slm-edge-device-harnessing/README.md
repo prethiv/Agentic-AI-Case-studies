@@ -396,6 +396,6 @@ flowchart TD
 
 ## 8. Related Case Studies & Architectural Synergy
 
-- [Case Study 02: Context Compaction & RAG Memory Pattern](case-studies/02-context-compaction-rag-memory/README.md) - Compacting contexts and memory pruning for local resource-constrained models.
-- [Case Study 03: Google ADK to Local LLMs via OpenAI Wrappers](case-studies/03-google-adk-local-llm-wrapper/README.md) - Routing autonomous orchestration frameworks directly into local inference endpoints.
-- [Case Study 04: Resilient ReAct Production Architecture & Blueprint](case-studies/04-resilient-react-production-architecture/README.md) - Hardening autonomous execution loops with cycle detection and sandboxing.
+- [Case Study 02: Context Compaction & RAG Memory Pattern](../02-context-compaction-rag-memory/README.md) - Compacting contexts and memory pruning for local resource-constrained models.
+- [Case Study 03: Google ADK to Local LLMs via OpenAI Wrappers](../03-google-adk-local-llm-wrapper/README.md) - Routing autonomous orchestration frameworks directly into local inference endpoints.
+- [Case Study 04: Resilient ReAct Production Architecture & Blueprint](../04-resilient-react-production-architecture/README.md) - Hardening autonomous execution loops with cycle detection and sandboxing.

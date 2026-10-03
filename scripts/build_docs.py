@@ -12,13 +12,24 @@ import sys
 
 
 def fix_relative_links(file_path: str):
-    """Fix relative cross-links like [Text](case-studies/XX-...) inside a subfolder to [Text](../XX-...)."""
+    """Fix relative cross-links like [Text](case-studies/XX-...) inside a subfolder to [Text](../XX-...).
+    Also normalizes relative code links (examples/...) to point to GitHub blob repository."""
     with open(file_path, "r", encoding="utf-8") as f:
         content = f.read()
 
     # Pattern: [Link Text](case-studies/01-agentic-...) -> [Link Text](../01-agentic-...)
     # inside subdirectories under case-studies/
     modified = re.sub(r'\]\(case-studies/(\d{2}-[^)]+)\)', r'](../\1)', content)
+
+    # Rewrite relative examples/*.py links to GitHub blob URL so static site readers can view the code
+    # e.g., (examples/foo.py) inside case-studies/28-xxx/README.md -> GitHub blob link
+    parent_dir = os.path.basename(os.path.dirname(file_path))
+    if parent_dir.startswith(tuple(f"{i:02d}-" for i in range(1, 100))):
+        modified = re.sub(
+            r'\]\(examples/([^)]+)\)',
+            rf'](https://github.com/prethiv/Agentic-AI-Case-studies/blob/main/case-studies/{parent_dir}/examples/\1)',
+            modified
+        )
 
     if modified != content:
         with open(file_path, "w", encoding="utf-8") as f:
@@ -48,7 +59,7 @@ def prepare_docs():
 
     # 2. Copy all case-studies to docs/case-studies
     print(f"[2/4] Copying case studies to {case_studies_dst}...")
-    shutil.copytree(case_studies_src, case_studies_dst, ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
+    shutil.copytree(case_studies_src, case_studies_dst, ignore=shutil.ignore_patterns("__pycache__", "*.pyc", "examples"))
 
     # 3. Normalize cross-case-study links inside case-studies
     print("[3/4] Normalizing cross-reference links...")
@@ -90,10 +101,7 @@ document$.subscribe(() => {
 
 def run_mkdocs_build():
     print("\n[BUILD] Running mkdocs build --strict...")
-    res = subprocess.run([sys.executable, "-m", "mkdocs", "build", "--strict"], check=False)
-    if res.returncode != 0:
-        print("[WARNING] Strict build had notices, running standard build...")
-        subprocess.run([sys.executable, "-m", "mkdocs", "build"], check=True)
+    subprocess.run([sys.executable, "-m", "mkdocs", "build", "--strict"], check=True)
     print("\n[SUCCESS] MkDocs site build completed successfully!")
 
 

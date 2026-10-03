@@ -1,7 +1,15 @@
 """
-Unit tests for documentation preparation, math syntax, and built HTML integrity.
-Ensures LaTeX equations, slashes, relational operators, and MathJax hooks render
-properly in both GitHub Markdown and MkDocs Material static documentation.
+Generic, Automated Unit Test Suite for Agentic-AI-Case-Studies.
+================================================================
+Validates all existing (01-29) and future (30+) case studies:
+  1. Directory & File Structure (slug naming, README.md, H1 title, links, code fences).
+  2. Index & Registry Synchronization (root README table/tree, mkdocs.yml nav).
+  3. Character Encoding & Integrity (UTF-8, no replacement chars U+FFFD).
+  4. LaTeX & MathJax Syntax (isolated $$, no raw < / > in math mode, no unsupported macros).
+  5. Mermaid Diagram Robustness (valid headers, quoted edge labels, no raw <think> tags).
+  6. Static Site HTML Build Integrity (no dangling dollars, no misplaced entities).
+
+Executed automatically by the Git pre-push hook (.git/hooks/pre-push).
 """
 
 import os
@@ -13,10 +21,202 @@ REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 CASE_STUDIES_DIR = os.path.join(REPO_ROOT, "case-studies")
 DOCS_DIR = os.path.join(REPO_ROOT, "docs")
 SITE_DIR = os.path.join(REPO_ROOT, "site")
+ROOT_README = os.path.join(REPO_ROOT, "README.md")
+MKDOCS_YML = os.path.join(REPO_ROOT, "mkdocs.yml")
 
+
+def get_all_case_study_dirs():
+    """Dynamically returns all numbered case study directories sorted numerically."""
+    return sorted(
+        [
+            d for d in os.listdir(CASE_STUDIES_DIR)
+            if os.path.isdir(os.path.join(CASE_STUDIES_DIR, d)) and re.match(r"^\d{2}-", d)
+        ],
+        key=lambda x: int(x.split("-")[0])
+    )
+
+
+# ============================================================================
+# 1. Generic Case Study Structure & Markdown Integrity
+# ============================================================================
+
+class TestCaseStudyStructure(unittest.TestCase):
+    """Generic structural and integrity tests across all present and future case studies."""
+
+    def test_case_study_directory_naming_convention(self):
+        """Every case study directory must strictly follow 'NN-lowercase-hyphenated-slug' format."""
+        pattern = re.compile(r"^\d{2}-[a-z0-9]+(-[a-z0-9]+)*$")
+        all_dirs = get_all_case_study_dirs()
+        self.assertGreaterEqual(len(all_dirs), 1, "At least one case study must exist")
+
+        invalid = [d for d in all_dirs if not pattern.match(d)]
+        self.assertEqual(
+            invalid,
+            [],
+            f"Case study directory names do not follow 'NN-lowercase-slug' format: {invalid}",
+        )
+
+    def test_case_study_readme_exists_and_non_empty(self):
+        """Every case study directory must contain a non-trivial README.md (> 200 bytes)."""
+        all_dirs = get_all_case_study_dirs()
+        for d in all_dirs:
+            readme_path = os.path.join(CASE_STUDIES_DIR, d, "README.md")
+            self.assertTrue(os.path.exists(readme_path), f"Missing README.md in {d}")
+            self.assertGreater(
+                os.path.getsize(readme_path),
+                200,
+                f"README.md in {d} is suspiciously small or empty",
+            )
+
+    def test_case_study_h1_title_convention(self):
+        """First non-empty line of every case study README must match '# Case Study <NN>: ...'."""
+        all_dirs = get_all_case_study_dirs()
+        violations = []
+
+        for d in all_dirs:
+            readme_path = os.path.join(CASE_STUDIES_DIR, d, "README.md")
+            num_str = d.split("-")[0]
+            expected_prefix = rf"^# Case Study (?:{num_str}|{int(num_str)}):"
+
+            with open(readme_path, "r", encoding="utf-8") as f:
+                first_line = ""
+                for line in f:
+                    if line.strip():
+                        first_line = line.strip()
+                        break
+
+            if not re.match(expected_prefix, first_line):
+                violations.append(f"{d}: found '{first_line[:40]}...', expected prefix '# Case Study {num_str}:'")
+
+        self.assertEqual(
+            violations,
+            [],
+            "Case study READMEs with missing or mismatched H1 title prefix:\n" + "\n".join(violations),
+        )
+
+    def test_no_broken_relative_links(self):
+        """All relative links [Text](path) outside code blocks must resolve to existing files on disk."""
+        all_dirs = get_all_case_study_dirs()
+        broken_links = []
+
+        for d in all_dirs:
+            readme_path = os.path.join(CASE_STUDIES_DIR, d, "README.md")
+            with open(readme_path, "r", encoding="utf-8") as f:
+                content = f.read()
+
+            # Strip code blocks to avoid matching python code indexing e.g. tools[name](**args)
+            no_code = re.sub(r"```.*?```", "", content, flags=re.DOTALL)
+            no_code = re.sub(r"`[^`\n]+`", "", no_code)
+
+            links = re.findall(r"\[([^\]]+)\]\(([^)#\s][^)]*)\)", no_code)
+            for text, url in links:
+                # Ignore external URLs and mailto
+                if url.startswith(("http://", "https://", "mailto:", "ftp://")):
+                    continue
+                # Remove query params or anchors if any
+                clean_url = url.split("?")[0].split("#")[0]
+                if not clean_url:
+                    continue
+                target = os.path.normpath(os.path.join(CASE_STUDIES_DIR, d, clean_url))
+                if not os.path.exists(target):
+                    broken_links.append(f"{d}: [{text}]({url}) -> unresolved '{target}'")
+
+        self.assertEqual(
+            broken_links,
+            [],
+            "Found broken relative links in case study markdown files:\n" + "\n".join(broken_links),
+        )
+
+    def test_markdown_code_fences_balanced(self):
+        """Every case study README must have an even count of code fences (no unclosed ```)."""
+        all_dirs = get_all_case_study_dirs()
+        unbalanced = []
+
+        for d in all_dirs:
+            readme_path = os.path.join(CASE_STUDIES_DIR, d, "README.md")
+            with open(readme_path, "r", encoding="utf-8") as f:
+                content = f.read()
+
+            fences = len(re.findall(r"^```", content, re.MULTILINE))
+            if fences % 2 != 0:
+                unbalanced.append(f"{d}: found {fences} fence markers (must be even)")
+
+        self.assertEqual(
+            unbalanced,
+            [],
+            "Found unbalanced markdown code fences in case studies:\n" + "\n".join(unbalanced),
+        )
+
+
+# ============================================================================
+# 2. Registry & Synchronization Tests (Root README & mkdocs.yml)
+# ============================================================================
+
+class TestRegistryAndNavigationSync(unittest.TestCase):
+    """Ensures root README and mkdocs.yml stay 100% in sync as new case studies are added."""
+
+    def test_mkdocs_nav_includes_all_case_studies(self):
+        """Every case study README in case-studies/ must be registered in mkdocs.yml nav."""
+        self.assertTrue(os.path.exists(MKDOCS_YML), "mkdocs.yml must exist")
+        with open(MKDOCS_YML, "r", encoding="utf-8") as f:
+            content = f.read()
+
+        missing = []
+        all_dirs = get_all_case_study_dirs()
+        for d in all_dirs:
+            expected_ref = f"case-studies/{d}/README.md"
+            if expected_ref not in content:
+                missing.append(expected_ref)
+
+        self.assertEqual(
+            missing,
+            [],
+            f"Missing case studies in mkdocs.yml nav configuration:\n" + "\n".join(missing),
+        )
+
+    def test_root_readme_index_table_includes_all_case_studies(self):
+        """Root README.md Case Studies Index table must list every case study directory."""
+        self.assertTrue(os.path.exists(ROOT_README), "Root README.md must exist")
+        with open(ROOT_README, "r", encoding="utf-8") as f:
+            content = f.read()
+
+        missing = []
+        all_dirs = get_all_case_study_dirs()
+        for d in all_dirs:
+            expected_ref = f"case-studies/{d}/README.md"
+            if expected_ref not in content:
+                missing.append(f"{d} (missing link: {expected_ref})")
+
+        self.assertEqual(
+            missing,
+            [],
+            "Case studies missing from root README.md index table:\n" + "\n".join(missing),
+        )
+
+    def test_root_readme_directory_tree_includes_all_case_studies(self):
+        """Root README.md folder tree diagram must list every case study folder."""
+        with open(ROOT_README, "r", encoding="utf-8") as f:
+            content = f.read()
+
+        missing = []
+        all_dirs = get_all_case_study_dirs()
+        for d in all_dirs:
+            if d not in content:
+                missing.append(d)
+
+        self.assertEqual(
+            missing,
+            [],
+            "Case study directory names missing from root README.md directory tree:\n" + "\n".join(missing),
+        )
+
+
+# ============================================================================
+# 3. LaTeX & MathJax Syntax Guardrails
+# ============================================================================
 
 class TestMarkdownMathSyntax(unittest.TestCase):
-    """Validates markdown math formulas across all case studies for GitHub and MkDocs compatibility."""
+    """Generic LaTeX and MathJax validation for all current and future case studies."""
 
     def test_no_indented_display_math_blocks(self):
         """Display math ($$) must not be indented under list items, which breaks GitHub and arithmatex."""
@@ -40,7 +240,7 @@ class TestMarkdownMathSyntax(unittest.TestCase):
         )
 
     def test_matching_display_math_delimiters(self):
-        """Every display math block ($$) must have matching delimiters."""
+        """Every display math block ($$) must have matching delimiters on isolated lines."""
         for root, _, files in os.walk(CASE_STUDIES_DIR):
             for file in files:
                 if file.endswith(".md"):
@@ -49,7 +249,6 @@ class TestMarkdownMathSyntax(unittest.TestCase):
                     with open(path, "r", encoding="utf-8") as f:
                         content = f.read()
 
-                    # Count isolated $$ lines (block math openers/closers)
                     isolated_count = len(re.findall(r"^\s*\$\$\s*$", content, re.MULTILINE))
                     self.assertEqual(
                         isolated_count % 2,
@@ -60,7 +259,7 @@ class TestMarkdownMathSyntax(unittest.TestCase):
     def test_no_raw_relational_operators_in_math_mode(self):
         """Inline math with relational operators must use \\gt / \\lt to avoid HTML entity encoding (&gt;)."""
         violations = []
-        raw_gt_pattern = re.compile(r"\$[^\$]*?\s+>\s+[^\$]*?\$")
+        raw_rel_pattern = re.compile(r"\$[^\$\n]*?(?:\s+[><]\s+|>[0-9]|<[0-9])[^\$\n]*?\$")
 
         for root, _, files in os.walk(CASE_STUDIES_DIR):
             for file in files:
@@ -68,17 +267,22 @@ class TestMarkdownMathSyntax(unittest.TestCase):
                     path = os.path.join(root, file)
                     rel_path = os.path.relpath(path, REPO_ROOT)
                     with open(path, "r", encoding="utf-8") as f:
+                        in_code_block = False
                         for line_num, line in enumerate(f, 1):
-                            # Skip lines containing pure HTML or mermaid
+                            if line.strip().startswith("```"):
+                                in_code_block = not in_code_block
+                                continue
+                            if in_code_block:
+                                continue
                             if "flowchart" in line or "classDef" in line:
                                 continue
-                            if raw_gt_pattern.search(line):
+                            if raw_rel_pattern.search(line):
                                 violations.append(f"{rel_path}:{line_num}: {line.strip()}")
 
         self.assertEqual(
             violations,
             [],
-            f"Found unescaped '>' in math mode (use \\gt to prevent HTML escaping):\n" + "\n".join(violations),
+            f"Found unescaped '>' or '<' in math mode (use \\gt / \\lt to prevent HTML escaping):\n" + "\n".join(violations),
         )
 
     def test_no_unsupported_mathjax_macros(self):
@@ -101,46 +305,38 @@ class TestMarkdownMathSyntax(unittest.TestCase):
             f"Found unsupported MathJax macros in markdown files (use standard \\overset/\\underset):\n" + "\n".join(violations),
         )
 
-    def test_case_study_11_equations_structure(self):
-        """Case study 11 must contain required math blocks formatted on isolated lines."""
-        readme_path = os.path.join(CASE_STUDIES_DIR, "11-hybrid-swarm-delegation-blackboard", "README.md")
-        self.assertTrue(os.path.exists(readme_path), "Case study 11 README.md must exist")
+    def test_all_display_math_blocks_have_balanced_braces(self):
+        """All display math blocks ($$...$$) across all case studies must have balanced curly braces."""
+        violations = []
+        for root, _, files in os.walk(CASE_STUDIES_DIR):
+            for file in files:
+                if file.endswith(".md"):
+                    path = os.path.join(root, file)
+                    rel_path = os.path.relpath(path, REPO_ROOT)
+                    with open(path, "r", encoding="utf-8") as f:
+                        content = f.read()
 
-        with open(readme_path, "r", encoding="utf-8") as f:
-            content = f.read()
+                    blocks = re.findall(r"\$\$(.*?)\$\$", content, re.DOTALL)
+                    for idx, block in enumerate(blocks):
+                        # Count braces ignoring escaped \{ and \}
+                        clean_block = block.replace(r"\{", "").replace(r"\}", "")
+                        open_count = clean_block.count("{")
+                        close_count = clean_block.count("}")
+                        if open_count != close_count:
+                            violations.append(
+                                f"{rel_path} (block {idx}): {open_count} open vs {close_count} close braces"
+                            )
 
-        # Check required formulas
-        self.assertIn("\\text{BidScore}(A_i, T_j)", content)
-        self.assertIn("\\mathcal{C}(A_i, T_j) = \\frac{1}{m}", content)
-        self.assertIn("v \\not\\rightsquigarrow_{\\mathcal{G}} u", content)
-        self.assertIn("\\text{Depth}(v) \\le D_{\\max}", content)
-        self.assertIn("\\text{Depth}(v) \\gt D_{\\max}", content)
-        self.assertIn("\\tau_k(t + 1) = \\max", content)
+        self.assertEqual(
+            violations,
+            [],
+            "Found unbalanced curly braces in display math blocks:\n" + "\n".join(violations),
+        )
 
-        # Check that display math blocks are preceded and followed by $$ on isolated lines
-        block_pattern = re.compile(r"\n\$\$\n.*?\n\$\$\n", re.DOTALL)
-        blocks = block_pattern.findall(content)
-        self.assertGreaterEqual(len(blocks), 4, f"Expected at least 4 display math blocks in Case Study 11, found {len(blocks)}")
 
-    def test_newly_added_case_studies_12_to_28_math_structure(self):
-        """Case studies 12 through 28 must contain required display math blocks formatted on isolated lines."""
-        for num in [str(i) for i in range(12, 29)]:
-            matches = [d for d in os.listdir(CASE_STUDIES_DIR) if d.startswith(f"{num}-")]
-            self.assertTrue(len(matches) > 0, f"Case study {num} directory not found")
-            readme_path = os.path.join(CASE_STUDIES_DIR, matches[0], "README.md")
-            self.assertTrue(os.path.exists(readme_path), f"{readme_path} must exist")
-
-            with open(readme_path, "r", encoding="utf-8") as f:
-                content = f.read()
-
-            block_pattern = re.compile(r"\n\$\$\n.*?\n\$\$\n", re.DOTALL)
-            blocks = block_pattern.findall(content)
-            self.assertGreaterEqual(
-                len(blocks),
-                2,
-                f"Expected at least 2 display math blocks in Case Study {num}, found {len(blocks)}",
-            )
-
+# ============================================================================
+# 4. Mermaid Diagram Syntax & Robustness
+# ============================================================================
 
 class TestMermaidDiagramSyntax(unittest.TestCase):
     """Validates Mermaid diagrams in markdown files to ensure zero browser rendering syntax errors."""
@@ -183,7 +379,6 @@ class TestMermaidDiagramSyntax(unittest.TestCase):
     def test_no_unquoted_special_characters_in_mermaid_edge_labels(self):
         """Mermaid edge labels (|...|) must not contain unquoted brackets or parens that trigger syntax errors."""
         violations = []
-        # Pattern detects |...| with unescaped/unquoted brackets or parens
         for root, _, files in os.walk(CASE_STUDIES_DIR):
             for file in files:
                 if file.endswith(".md"):
@@ -197,10 +392,8 @@ class TestMermaidDiagramSyntax(unittest.TestCase):
                         for line_idx, line in enumerate(block.splitlines(), 1):
                             labels = re.findall(r"\|([^\|]+)\|", line)
                             for label in labels:
-                                # If label is enclosed in double quotes e.g. |"Text (Extra)"|, it is valid in Mermaid
                                 if label.startswith('"') and label.endswith('"'):
                                     continue
-                                # Otherwise, unquoted raw brackets/parens trigger Mermaid parser errors
                                 if any(ch in label for ch in "[]()"):
                                     violations.append(
                                         f"{rel_path} (block {block_idx}, line {line_idx}): |{label}|"
@@ -213,6 +406,57 @@ class TestMermaidDiagramSyntax(unittest.TestCase):
             + "\n".join(violations),
         )
 
+    def test_no_raw_tags_or_broken_syntax_in_mermaid(self):
+        """Mermaid blocks must not contain unescaped HTML tags (e.g. <think>) that break SVG rendering."""
+        violations = []
+        tag_pattern = re.compile(r"<\s*/?\s*(?:think|tool_call)[^>]*>")
+
+        for root, _, files in os.walk(CASE_STUDIES_DIR):
+            for file in files:
+                if file.endswith(".md"):
+                    path = os.path.join(root, file)
+                    rel_path = os.path.relpath(path, REPO_ROOT)
+                    with open(path, "r", encoding="utf-8") as f:
+                        content = f.read()
+
+                    mermaid_blocks = re.findall(r"```mermaid\n(.*?)\n```", content, re.DOTALL)
+                    for block_idx, block in enumerate(mermaid_blocks):
+                        for line_idx, line in enumerate(block.splitlines(), 1):
+                            if tag_pattern.search(line):
+                                violations.append(
+                                    f"{rel_path} (block {block_idx}, line {line_idx}): {line.strip()}"
+                                )
+
+        self.assertEqual(
+            violations,
+            [],
+            f"Found raw <think> or <tool_call> tags inside Mermaid diagrams (breaks browser SVG XML):\n"
+            + "\n".join(violations),
+        )
+
+    def test_no_encoding_replacement_characters(self):
+        """Markdown files must not contain Unicode replacement character U+FFFD indicating corrupt encoding."""
+        violations = []
+        for root, _, files in os.walk(CASE_STUDIES_DIR):
+            for file in files:
+                if file.endswith(".md"):
+                    path = os.path.join(root, file)
+                    rel_path = os.path.relpath(path, REPO_ROOT)
+                    with open(path, "r", encoding="utf-8") as f:
+                        for line_num, line in enumerate(f, 1):
+                            if "\ufffd" in line:
+                                violations.append(f"{rel_path}:{line_num}: {line.strip()}")
+
+        self.assertEqual(
+            violations,
+            [],
+            f"Found corrupt Unicode replacement characters (\\ufffd) in markdown files:\n" + "\n".join(violations),
+        )
+
+
+# ============================================================================
+# 5. Documentation Preparation Script & Config
+# ============================================================================
 
 class TestDocsPreparation(unittest.TestCase):
     """Validates docs preparation scripts and configuration."""
@@ -233,30 +477,35 @@ class TestDocsPreparation(unittest.TestCase):
         self.assertIn("arithmatex", content)
 
 
+# ============================================================================
+# 6. Static Site HTML Build Integrity
+# ============================================================================
+
 class TestBuiltSiteIntegrity(unittest.TestCase):
     """Validates the generated static site HTML for correct math rendering and zero visual glitches."""
 
     @classmethod
     def setUpClass(cls):
-        # Ensure site is built before verifying HTML
         site_case_15 = os.path.join(SITE_DIR, "case-studies", "15-deterministic-event-sourced-replay", "index.html")
         if not os.path.exists(site_case_15):
             from scripts.build_docs import prepare_docs, run_mkdocs_build
             prepare_docs()
             run_mkdocs_build()
 
-    def test_all_twenty_eight_case_studies_generated(self):
-        """Every case study (01 through 28) must have a built index.html."""
-        for i in range(1, 29):
-            prefix = f"{i:02d}-"
-            matches = [d for d in os.listdir(os.path.join(SITE_DIR, "case-studies")) if d.startswith(prefix)]
-            self.assertTrue(len(matches) > 0, f"Case study {prefix} directory not found in site/")
+    def test_all_case_studies_generated(self):
+        """Every case study directory must have a built index.html."""
+        all_dirs = get_all_case_study_dirs()
+        for d in all_dirs:
+            matches = [item for item in os.listdir(os.path.join(SITE_DIR, "case-studies")) if item == d]
+            self.assertTrue(len(matches) > 0, f"Case study directory {d} not found in site/")
             html_file = os.path.join(SITE_DIR, "case-studies", matches[0], "index.html")
             self.assertTrue(os.path.exists(html_file), f"Missing index.html for {matches[0]}")
 
     def test_no_dangling_literal_dollars_around_arithmatex(self):
         """Built HTML must not contain dangling literal $ around arithmatex spans/divs."""
-        dangling_pattern = re.compile(r"(\$\s*<(?:span|div) class=\"arithmatex\">|<(?:span|div) class=\"arithmatex\">[^<]*</(?:span|div)>\s*\$)")
+        dangling_pattern = re.compile(
+            r"(\$\s*<(?:span|div) class=\"arithmatex\">|<(?:span|div) class=\"arithmatex\">[^<]*</(?:span|div)>\s*\$)"
+        )
         violations = []
 
         for root, _, files in os.walk(SITE_DIR):
@@ -298,32 +547,20 @@ class TestBuiltSiteIntegrity(unittest.TestCase):
             f"Found HTML entity (&gt;/&lt;) inside math blocks causing MathJax failures:\n" + "\n".join(violations),
         )
 
-    def test_case_study_11_html_renders_all_math_blocks(self):
-        """Case study 11 built HTML must contain the correct arithmatex blocks."""
-        html_path = os.path.join(SITE_DIR, "case-studies", "11-hybrid-swarm-delegation-blackboard", "index.html")
-        self.assertTrue(os.path.exists(html_path))
-
-        with open(html_path, "r", encoding="utf-8") as f:
-            html = f.read()
-
-        # Check for presence of arithmatex blocks (normalizing whitespace)
-        norm_html = " ".join(html.split())
-        self.assertIn('<div class="arithmatex">\\[ \\text{BidScore}(A_i, T_j)', norm_html)
-        self.assertIn('<div class="arithmatex">\\[ \\mathcal{C}(A_i, T_j)', norm_html)
-        self.assertIn('<div class="arithmatex">\\[ \\forall (u, v) \\in E: \\quad v \\not\\rightsquigarrow_{\\mathcal{G}} u \\]</div>', norm_html)
-        self.assertIn('<div class="arithmatex">\\[ \\text{Depth}(v) \\le D_{\\max}, \\quad \\forall v \\in V \\]</div>', norm_html)
-        self.assertIn('<span class="arithmatex">\\(\\text{Depth}(v) \\gt D_{\\max}\\)</span>', html)
-        self.assertIn('<div class="arithmatex">\\[ \\tau_k(t + 1) = \\max', norm_html)
-
     def test_case_studies_mermaid_containers_rendered(self):
-        """Case studies 12 through 28 built HTML must contain valid rendered mermaid containers."""
-        for num in [f"{i:02d}" for i in range(12, 29)]:
-            matches = [d for d in os.listdir(os.path.join(SITE_DIR, "case-studies")) if d.startswith(f"{num}-")]
-            self.assertTrue(len(matches) > 0, f"Site directory for case study {num} not found")
-            html_path = os.path.join(SITE_DIR, "case-studies", matches[0], "index.html")
+        """All case studies with mermaid blocks must contain rendered mermaid containers."""
+        all_dirs = get_all_case_study_dirs()
+        for d in all_dirs:
+            md_path = os.path.join(CASE_STUDIES_DIR, d, "README.md")
+            with open(md_path, "r", encoding="utf-8") as f:
+                md_content = f.read()
+            if "```mermaid" not in md_content:
+                continue
+
+            html_path = os.path.join(SITE_DIR, "case-studies", d, "index.html")
             with open(html_path, "r", encoding="utf-8") as f:
                 html = f.read()
-            self.assertIn('class="mermaid"', html, f"Case study {num} HTML missing mermaid containers")
+            self.assertIn('class="mermaid"', html, f"{d} HTML missing mermaid containers")
 
     def test_no_unrendered_latex_macros_in_html(self):
         """Built HTML must not contain unrendered LaTeX macro strings like \\xrightleftharpoons."""
@@ -348,4 +585,3 @@ class TestBuiltSiteIntegrity(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

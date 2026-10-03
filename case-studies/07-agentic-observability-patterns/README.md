@@ -342,6 +342,6 @@ flowchart LR
 
 ## 8. Related Case Studies & Architectural Synergy
 
-- [Case Study 01: Agentic Evaluation & CI/CD Integration Pattern](case-studies/01-agentic-evaluation-pattern/README.md) - Pre-deployment trajectory evaluation and LLM-as-a-judge benchmarking.
-- [Case Study 04: Resilient ReAct Production Architecture & Blueprint](case-studies/04-resilient-react-production-architecture/README.md) - ReAct orchestration engines with MD5 cycle detection and context window distillation.
-- [Case Study 05: Harnessing Small Language Models on Edge Devices](case-studies/05-slm-edge-device-harnessing/README.md) - Edge SLM runtime harnesses, thermal budgeting, and on-device logging.
+- [Case Study 01: Agentic Evaluation & CI/CD Integration Pattern](../01-agentic-evaluation-pattern/README.md) - Pre-deployment trajectory evaluation and LLM-as-a-judge benchmarking.
+- [Case Study 04: Resilient ReAct Production Architecture & Blueprint](../04-resilient-react-production-architecture/README.md) - ReAct orchestration engines with MD5 cycle detection and context window distillation.
+- [Case Study 05: Harnessing Small Language Models on Edge Devices](../05-slm-edge-device-harnessing/README.md) - Edge SLM runtime harnesses, thermal budgeting, and on-device logging.

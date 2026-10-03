@@ -275,16 +275,16 @@ When a model is trained via GRPO on verifiable rewards *without any human demons
 sequenceDiagram
     autonumber
     participant Engine as GRPO Training Engine
-    participant Model as Policy Model (π_θ)
+    participant Model as "Policy Model (pi_theta)"
     participant Verifier as Sandboxed Verifier (Rules)
 
-    Engine->>Model: Query: "Solve quadratic equation 2x^2 + 5x - 3 = 0"
+    Engine->>Model: Query: Solve quadratic equation 2x^2 + 5x - 3 = 0
     par Rollout 1 (Direct Guess)
-        Model-->>Engine: "Answer: x = 1, x = -3" (Fast guess)
+        Model-->>Engine: "Answer: x = 1, x = -3 (Fast guess)"
     and Rollout 2 (Flawed Reasoning)
-        Model-->>Engine: "<think> Discriminant is 25 - 4(2)(-3) = 25 - 24 = 1 </think> Answer: x = -1"
+        Model-->>Engine: "[think] Discriminant is 25 - 4(2)(-3) = 25 - 24 = 1 [/think] Answer: x = -1"
     and Rollout 3 (Self-Correcting Reasoning)
-        Model-->>Engine: "<think> D = 25 - 4(2)(-3) = 25 + 24 = 49. Sqrt(49) = 7. x = (-5 ± 7)/4. So x = 1/2 or x = -3. Let me verify: 2(1/4) + 5(1/2) - 3 = 1/2 + 5/2 - 3 = 0. Matches! </think> Answer: x = 1/2, x = -3"
+        Model-->>Engine: "[think] D = 25 - 4(2)(-3) = 25 + 24 = 49. Sqrt(49) = 7. x = (-5 +/- 7)/4. So x = 1/2 or x = -3. Let me verify: 2(1/4) + 5(1/2) - 3 = 1/2 + 5/2 - 3 = 0. Matches! [/think] Answer: x = 1/2, x = -3"
     end
 
     Engine->>Verifier: Evaluate Rollouts 1, 2, 3

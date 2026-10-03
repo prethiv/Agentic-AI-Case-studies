@@ -422,8 +422,8 @@ To maximize reasoning power while maintaining sub-millisecond execution speeds, 
 
 ## 8. Related Case Studies & Architectural Synergy
 
-- [Case Study 02: Context Compaction & RAG Memory Pattern](case-studies/02-context-compaction-rag-memory/README.md) - Compacting memory and pruning token bloat in constrained models.
-- [Case Study 04: Resilient ReAct Production Architecture & Blueprint](case-studies/04-resilient-react-production-architecture/README.md) - Discrete ReAct loop engines, cycle detection, and guardrails.
-- [Case Study 05: Harnessing Small Language Models on Edge Devices](case-studies/05-slm-edge-device-harnessing/README.md) - Executing low-latency inference on hardware with strict memory bandwidth caps.
-- [Case Study 07: Semantic Observability & Telemetry Patterns](case-studies/07-agentic-observability-patterns/README.md) - Tracking state-deltas and cognitive span hierarchies.
-- [Case Study 08: Distributed Job Scheduler via MCP, RAG & HITL](case-studies/08-agentic-distributed-job-scheduler-mcp/README.md) - Orchestrating asynchronous multi-step batch reasoning jobs.
+- [Case Study 02: Context Compaction & RAG Memory Pattern](../02-context-compaction-rag-memory/README.md) - Compacting memory and pruning token bloat in constrained models.
+- [Case Study 04: Resilient ReAct Production Architecture & Blueprint](../04-resilient-react-production-architecture/README.md) - Discrete ReAct loop engines, cycle detection, and guardrails.
+- [Case Study 05: Harnessing Small Language Models on Edge Devices](../05-slm-edge-device-harnessing/README.md) - Executing low-latency inference on hardware with strict memory bandwidth caps.
+- [Case Study 07: Semantic Observability & Telemetry Patterns](../07-agentic-observability-patterns/README.md) - Tracking state-deltas and cognitive span hierarchies.
+- [Case Study 08: Distributed Job Scheduler via MCP, RAG & HITL](../08-agentic-distributed-job-scheduler-mcp/README.md) - Orchestrating asynchronous multi-step batch reasoning jobs.

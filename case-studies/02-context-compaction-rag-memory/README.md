@@ -28,7 +28,7 @@ flowchart TD
     subgraph ContextBudget["8,192 Token Context Budget (DeepSeek-R1:7B)"]
         direction TB
         SP["System Prompt & Tool Schemas (~1,000 tokens)"]
-        RZN["Active Reasoning Buffer <think> (~2,500 tokens)"]
+        RZN["Active Reasoning Buffer [think] (~2,500 tokens)"]
         HIST["Conversation History & Verbose Outputs (~3,500 tokens)"]
         GEN["Generation Reserve (~1,192 tokens)"]
     end
@@ -78,7 +78,7 @@ flowchart LR
         
         subgraph Pattern1["Pattern 1: Context Compaction"]
             StateExtract["Entity & State Aggregator<br/>(e.g., dog, cat, fish, bird -> unified state)"]
-            PruneThink["Strip <think> Reasoning Traces"]
+            PruneThink["Strip [think] Reasoning Traces"]
             Rollup["Recursive Rollup Summary"]
         end
 

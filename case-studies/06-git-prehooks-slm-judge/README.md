@@ -336,6 +336,6 @@ flowchart LR
 
 ## 9. Related Case Studies & Architectural Synergy
 
-- [Case Study 01: Agentic Evaluation & CI/CD Integration Pattern](case-studies/01-agentic-evaluation-pattern/README.md) - Trajectory and LLM-as-a-judge gates integrated into continuous integration workflows.
-- [Case Study 02: Context Compaction & RAG Memory Pattern](case-studies/02-context-compaction-rag-memory/README.md) - Pruning context windows and managing token saturation on local LLMs.
-- [Case Study 05: Harnessing Small Language Models on Edge Devices](case-studies/05-slm-edge-device-harnessing/README.md) - Edge SLM runtime architectures, memory bandwidth constraints, and GBNF grammar enforcement.
+- [Case Study 01: Agentic Evaluation & CI/CD Integration Pattern](../01-agentic-evaluation-pattern/README.md) - Trajectory and LLM-as-a-judge gates integrated into continuous integration workflows.
+- [Case Study 02: Context Compaction & RAG Memory Pattern](../02-context-compaction-rag-memory/README.md) - Pruning context windows and managing token saturation on local LLMs.
+- [Case Study 05: Harnessing Small Language Models on Edge Devices](../05-slm-edge-device-harnessing/README.md) - Edge SLM runtime architectures, memory bandwidth constraints, and GBNF grammar enforcement.
