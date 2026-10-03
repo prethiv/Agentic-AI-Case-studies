@@ -239,9 +239,9 @@ sequenceDiagram
     autonumber
     participant LLM as Agent Foundation LLM
     participant Engine as Trajectory Tree Engine
-    participant Detector as Error & Loop Detector
+    participant Detector as "Error & Loop Detector"
     participant Tools as Tool Execution Engine
-    participant Ext as External Systems (DB/APIs)
+    participant Ext as "External Systems (DB/APIs)"
 
     LLM->>Engine: Propose Step k (Hypothesis, Action, Args)
     Engine->>Engine: Validate against Negative Constraints
@@ -249,7 +249,7 @@ sequenceDiagram
     Tools->>Ext: Mutate Resource / Acquire Lock
     Ext-->>Tools: 500 Fatal Deadlock / Resource Busy
     Tools-->>Detector: Raw Error & Stack Trace
-    Detector->>Detector: Classify Error -> SEMANTIC_DEAD_END
+    Detector->>Detector: Classify Error: SEMANTIC_DEAD_END
     Detector-->>Engine: Trigger Causal Backtrack (Distilled Reason)
     
     rect rgb(240, 220, 220)

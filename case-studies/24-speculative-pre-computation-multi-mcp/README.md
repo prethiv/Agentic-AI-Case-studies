@@ -55,16 +55,16 @@ $$
 ```mermaid
 sequenceDiagram
     autonumber
-    participant LLM as Frontier LLM (Streaming)
+    participant LLM as "Frontier LLM (Streaming)"
     participant Pipe as Speculative Pipeline Gateway
     participant MCP as Distributed MCP Node
-    participant DB as System State / Database
+    participant DB as "System State / Database"
 
-    LLM->>Pipe: Stream Tokens: "I need to query customer records for ID 44..."
-    Pipe->>Pipe: Prefix Matcher: Predicts 'mcp://crm/get_customer(id=44)'
+    LLM->>Pipe: "Stream Tokens: I need to query customer records for ID 44..."
+    Pipe->>Pipe: Prefix Matcher: Predicts mcp://crm/get_customer(id=44)
     Pipe->>MCP: Speculative Dispatch (Uncommitted Read Lease)
     Note over MCP: Fetches CRM Data in Background
-    LLM->>Pipe: Finalizes JSON: { "name": "get_customer", "args": { "id": 44 } }
+    LLM->>Pipe: "Finalizes JSON: { name: get_customer, args: { id: 44 } }"
     Pipe->>Pipe: Frontier Verification: Speculation MATCHES Final Output!
     MCP-->>Pipe: Return Pre-Computed Result (Latency: 0ms additional wait)
     Pipe->>LLM: Instant Feed: Observation Payload Ready

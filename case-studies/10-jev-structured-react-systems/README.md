@@ -175,9 +175,9 @@ sequenceDiagram
     autonumber
     actor User
     participant Router as Jev ModelRouter
-    participant LLM as System 2 LLM (Frontier/SLM)
-    participant Triage as Jev Thought Shortcut (Noul)
-    participant Gate as Jev Risk Gate (AutoMode)
+    participant LLM as "System 2 LLM (Frontier/SLM)"
+    participant Triage as "Jev Thought Shortcut (Noul)"
+    participant Gate as "Jev Risk Gate (AutoMode)"
     participant Tool as Target Tool Sandbox
     participant Compactor as Jev Observation Compactor
 
@@ -190,7 +190,7 @@ sequenceDiagram
     
     LLM->>Gate: Propose Action: execute_query(sql=...)
     Note over Gate: Jev Choice: [ALLOW, CONFIRM, BLOCK]
-    Gate->>Tool: Risk Score = 1.2 (ALLOW) -> Execute
+    Gate->>Tool: "Risk Score = 1.2 (ALLOW) -> Execute"
     Tool-->>Compactor: Return Raw SQL Output (50KB)
     
     Note over Compactor: Jev classifies each observation:<br/>KEEP, TRUNCATE, or DROP
@@ -797,8 +797,8 @@ Empirical evaluations comparing a standard pure-LLM ReAct agent (GPT-4o / Claude
 ```mermaid
 quadrantChart
     title Latency vs Deterministic Safety Across Agent Paradigms
-    x-axis Low Determinism / Safety --> High Determinism / Safety
-    y-axis High Latency (Slow) --> Low Latency (Sub-300ms)
+    x-axis Low Determinism and Safety --> High Determinism and Safety
+    y-axis High Latency Slow --> Low Latency Sub-300ms
     quadrant-1 Jev-Augmented ReAct
     quadrant-2 SLM-Only Hardcoded Loops
     quadrant-3 Naive Pure-LLM ReAct

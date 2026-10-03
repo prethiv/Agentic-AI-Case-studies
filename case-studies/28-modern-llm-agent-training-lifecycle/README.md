@@ -276,22 +276,22 @@ sequenceDiagram
     autonumber
     participant Engine as GRPO Training Engine
     participant Model as "Policy Model (pi_theta)"
-    participant Verifier as Sandboxed Verifier (Rules)
+    participant Verifier as "Sandboxed Verifier (Rules)"
 
-    Engine->>Model: Query: Solve quadratic equation 2x^2 + 5x - 3 = 0
-    par Rollout 1 (Direct Guess)
+    Engine->>Model: "Query: Solve quadratic equation 2x^2 + 5x - 3 = 0"
+    par Rollout 1
         Model-->>Engine: "Answer: x = 1, x = -3 (Fast guess)"
-    and Rollout 2 (Flawed Reasoning)
-        Model-->>Engine: "[think] Discriminant is 25 - 4(2)(-3) = 25 - 24 = 1 [/think] Answer: x = -1"
-    and Rollout 3 (Self-Correcting Reasoning)
-        Model-->>Engine: "[think] D = 25 - 4(2)(-3) = 25 + 24 = 49. Sqrt(49) = 7. x = (-5 +/- 7)/4. So x = 1/2 or x = -3. Let me verify: 2(1/4) + 5(1/2) - 3 = 1/2 + 5/2 - 3 = 0. Matches! [/think] Answer: x = 1/2, x = -3"
+    and Rollout 2
+        Model-->>Engine: "[think] Discriminant error yields x = -1 [/think]"
+    and Rollout 3
+        Model-->>Engine: "[think] Recalculates D = 49 to reach x = 1/2, x = -3 [/think]"
     end
 
-    Engine->>Verifier: Evaluate Rollouts 1, 2, 3
-    Verifier-->>Engine: r_1 = 0.0, r_2 = 0.0, r_3 = 1.0 + 0.2 (Format Bonus)
-    Engine->>Engine: Group Mean = 0.40, Std = 0.57
-    Engine->>Engine: A_1 = -0.70, A_2 = -0.70, A_3 = +1.40
-    Engine->>Model: Backprop Policy Gradient: Strongly suppress Rollouts 1 & 2; strongly amplify Rollout 3
+    Engine->>Verifier: "Evaluate Rollouts 1, 2, 3"
+    Verifier-->>Engine: "r_1 = 0.0, r_2 = 0.0, r_3 = 1.2"
+    Engine->>Engine: "Group Mean = 0.40, Std = 0.57"
+    Engine->>Engine: "A_1 = -0.70, A_2 = -0.70, A_3 = +1.40"
+    Engine->>Model: "Backprop Gradient: Suppress Rollouts 1 and 2, amplify Rollout 3"
 ```
 
 ---

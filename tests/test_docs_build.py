@@ -583,5 +583,63 @@ class TestBuiltSiteIntegrity(unittest.TestCase):
         )
 
 
+    def test_mermaid_diagram_syntax_integrity(self):
+        """All mermaid blocks must adhere to Mermaid 11.x syntax rules (no raw semicolons, unquoted special chars)."""
+        all_dirs = get_all_case_study_dirs()
+        syntax_errors = []
+
+        for d in all_dirs:
+            readme_path = os.path.join(CASE_STUDIES_DIR, d, "README.md")
+            with open(readme_path, "r", encoding="utf-8") as f:
+                content = f.read()
+
+            blocks = re.findall(r"```mermaid\r?\n(.*?)```", content, re.DOTALL)
+            for b_idx, block in enumerate(blocks, 1):
+                lines = block.strip().split("\n")
+                if not lines:
+                    continue
+                dtype = lines[0].strip()
+
+                for line_no, raw_line in enumerate(lines, 1):
+                    line = raw_line.strip()
+                    if not line or line.startswith("%%"):
+                        continue
+
+                    # Sequence diagram checks
+                    if dtype.startswith("sequenceDiagram"):
+                        # Semicolons in sequence diagrams are statement terminators
+                        if ";" in line and not line.startswith("%%"):
+                            syntax_errors.append(f"{d} (block #{b_idx}, line {line_no}): Unquoted semicolon in sequence diagram: '{line}'")
+
+                        # Participant / actor alias checks (must quote if parens or slashes present)
+                        if line.startswith(("participant ", "actor ")) and " as " in line:
+                            alias = line.split(" as ", 1)[1].strip()
+                            if any(c in alias for c in "()[]{}&;/") and not (alias.startswith('"') and alias.endswith('"')):
+                                syntax_errors.append(f"{d} (block #{b_idx}, line {line_no}): Unquoted special characters in participant alias: '{line}'")
+
+                        # Message checks (after colon)
+                        if ":" in line and not line.startswith(("participant", "actor", "note", "Note", "autonumber", "box", "end", "rect", "loop", "alt", "else", "par", "and", "critical", "option", "break")):
+                            msg = line.split(":", 1)[1].strip()
+                            # Unquoted -> in message
+                            if "->" in msg and not (msg.startswith('"') and msg.endswith('"')):
+                                syntax_errors.append(f"{d} (block #{b_idx}, line {line_no}): Unquoted '->' inside sequence message: '{line}'")
+                            # Unescaped HTML brackets like <commit-hash>
+                            if re.search(r"<[a-zA-Z0-9_\-]+>", msg):
+                                syntax_errors.append(f"{d} (block #{b_idx}, line {line_no}): Unescaped HTML tag in sequence message: '{line}'")
+
+                    # Quadrant chart checks
+                    if dtype.startswith("quadrantChart"):
+                        if line.startswith(("x-axis", "y-axis")):
+                            if "(" in line or ")" in line or "/" in line:
+                                syntax_errors.append(f"{d} (block #{b_idx}, line {line_no}): Parentheses or slashes in quadrantChart axis label: '{line}'")
+
+        self.assertEqual(
+            syntax_errors,
+            [],
+            "Found Mermaid syntax errors that fail under Mermaid 11.x:\n" + "\n".join(syntax_errors),
+        )
+
+
 if __name__ == "__main__":
     unittest.main()
+

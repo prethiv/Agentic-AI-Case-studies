@@ -49,10 +49,10 @@ where $N$ is the total number of agent nodes in the consensus committee, and $f$
 ```mermaid
 sequenceDiagram
     autonumber
-    participant Leader as Proposer Agent (Leader)
-    participant AgentA as Verifier Agent 1 (Honest)
-    participant AgentB as Verifier Agent 2 (Honest)
-    participant AgentC as Byzantine Agent 3 (Poisoned)
+    participant Leader as "Proposer Agent (Leader)"
+    participant AgentA as "Verifier Agent 1 (Honest)"
+    participant AgentB as "Verifier Agent 2 (Honest)"
+    participant AgentC as "Byzantine Agent 3 (Poisoned)"
     participant Ledger as Cryptographic Commit Ledger
 
     Leader->>AgentA: Pre-Prepare(View v, Seq n, Proposal P)

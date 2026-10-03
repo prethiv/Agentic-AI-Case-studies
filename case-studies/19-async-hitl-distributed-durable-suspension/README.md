@@ -41,7 +41,7 @@ A durable coroutine is an abstraction whose execution progress, local stack vari
 ```mermaid
 sequenceDiagram
     autonumber
-    participant LLM as Agent Brain (LLM)
+    participant LLM as "Agent Brain (LLM)"
     participant Worker as Durable Agent Worker
     participant Ledger as Event Sourcing Ledger
     participant Gateway as HITL Escrow Gateway

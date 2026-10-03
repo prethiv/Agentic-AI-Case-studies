@@ -152,14 +152,14 @@ sequenceDiagram
     autonumber
     actor User
     participant App as Agent Middleware
-    participant VDB as Vector Store (Chroma/SQLite-vec)
-    participant LLM as DeepSeek-R1 (LM Studio)
+    participant VDB as "Vector Store (Chroma/SQLite-vec)"
+    participant LLM as "DeepSeek-R1 (LM Studio)"
 
     User->>App: "What was that cherry-pick command you gave me 15 turns ago?"
-    App->>VDB: Query Embed("cherry-pick command previous turn")
+    App->>VDB: "Query Embed: cherry-pick command previous turn"
     VDB-->>App: Return Turn #4 Chunk (Similarity: 0.89)
     App->>LLM: Injects: [Compacted State] + [Retrieved Turn #4] + [Active Prompt]
-    LLM->>User: "At Turn 4, the command was: git cherry-pick -x <commit-hash>"
+    LLM->>User: "At Turn 4, the command was: git cherry-pick -x commit-hash"
 ```
 
 ### Episodic Chunking Strategy

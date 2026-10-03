@@ -119,9 +119,9 @@ flowchart TD
 sequenceDiagram
     autonumber
     participant App as Orchestrator
-    participant SLM as Draft Agent (Edge SLM)
+    participant SLM as "Draft Agent (Edge SLM)"
     participant Shadow as Async Pre-Exec Pool
-    participant Verifier as Frontier Verifier (LLM)
+    participant Verifier as "Frontier Verifier (LLM)"
     participant Prod as Production State
 
     App->>SLM: Draft Trajectory for Task (Lookahead K=3)

@@ -138,7 +138,7 @@ flowchart TD
 sequenceDiagram
     autonumber
     participant MCTS as MCTS Controller
-    participant Gen as Action Generator (LLM)
+    participant Gen as "Action Generator (LLM)"
     participant Sim as Shadow Sandbox
     participant PRM as PRM Verifier
     participant Env as Production System

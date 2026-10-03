@@ -120,7 +120,7 @@ flowchart TD
 ```mermaid
 sequenceDiagram
     autonumber
-    participant Dev as Developer / CI Suite
+    participant Dev as "Developer / CI Suite"
     participant Engine as Replay Controller
     participant Ledger as Causal Event Ledger
     participant Agent as Agent Core

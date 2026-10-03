@@ -95,10 +95,10 @@ The A2A Capability Mesh enforces capability inspection on all ingress and egress
 ```mermaid
 sequenceDiagram
     autonumber
-    participant User as User / Root Authority
+    participant User as "User / Root Authority"
     participant AgentA as Orchestrator Agent A
     participant AgentB as Worker Agent B
-    participant Tool as Tool Gateway / MCP Server
+    participant Tool as "Tool Gateway / MCP Server"
 
     User->>AgentA: Issue Task + Root Macaroon M0 (s0 = HMAC(K_root, TaskID))
     Note over AgentA: Offline Attenuation: Append Caveat 1
