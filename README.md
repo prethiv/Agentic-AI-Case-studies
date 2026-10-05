@@ -83,9 +83,12 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
     ├── 28-modern-llm-agent-training-lifecycle/           # Case Study 28: Modern LLM & Agent Training Lifecycles
     │   ├── README.md                                     # Multi-turn loss masking, DPO alignment, GRPO verifiable rewards & sandboxed grounding
     │   └── examples/                                     # Fully executable reference pipeline for SFT loss masking and GRPO advantage estimation
-    └── 29-autonomous-coding-data-science-agent-from-scratch/ # Case Study 29: Autonomous Coding & Data Science Agent from Scratch
-        ├── README.md                                     # First-principles architecture, dual-loop engine, sandboxing, verification & OSS playbook
-        └── examples/                                     # Fully executable reference pipeline for SWE surgical editing & stateful DS kernel REPL
+    ├── 29-autonomous-coding-data-science-agent-from-scratch/ # Case Study 29: Autonomous Coding & Data Science Agent from Scratch
+    │   ├── README.md                                     # First-principles architecture, dual-loop engine, sandboxing, verification & OSS playbook
+    │   └── examples/                                     # Fully executable reference pipeline for SWE surgical editing & stateful DS kernel REPL
+    └── 30-multi-agent-mesh-development-deployment-monitoring/ # Case Study 30: Multi-Agent Mesh Architecture (A2A Fabric)
+        ├── README.md                                     # P2P intent routing, CNP auctions, cognitive sidecars, K8s CRDs, SPIFFE & OTel GenAI
+        └── examples/                                     # Fully executable reference implementation & automated unit test suite
 ```
 
 ---
@@ -123,6 +126,7 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
 | **27** | [Autonomous Reflection Loops & Directed Graph Backtracking](case-studies/27-autonomous-reflection-loops-graph-backtracking/README.md) | Trajectory DAGs, causal error categorization, clean context pruning, and negative constraint ledgers | 💡 Conceptualized |
 | **28** | [Modern LLM & Agent Training Lifecycles](case-studies/28-modern-llm-agent-training-lifecycle/README.md) | Multi-turn loss masking, DPO alignment, GRPO verifiable rewards & sandboxed tool grounding | 💡 Conceptualized |
 | **29** | [Autonomous Coding & Data Science Agent from Scratch](case-studies/29-autonomous-coding-data-science-agent-from-scratch/README.md) | First-principles modular dual-loop architecture, stateful Jupyter ZeroMQ REPL, AST surgical editing, observation compaction & open-source flywheel | 💡 Conceptualized |
+| **30** | [Multi-Agent Mesh Architecture: Development, Deployment & Monitoring](case-studies/30-multi-agent-mesh-development-deployment-monitoring/README.md) | Decentralized P2P cognitive fabric, Contract Net Protocol, cognitive sidecars, K8s CRDs, zero-trust Macaroons, and OTel GenAI DAG tracing | 💡 Conceptualized |
 ---
 
 ## 🧭 Upcoming Case Study Brainstorms

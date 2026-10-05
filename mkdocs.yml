@@ -96,3 +96,4 @@ nav:
       - "27 - Autonomous Reflection Loops & Directed Graph Backtracking": case-studies/27-autonomous-reflection-loops-graph-backtracking/README.md
       - "28 - Modern LLM & Agent Training Lifecycles": case-studies/28-modern-llm-agent-training-lifecycle/README.md
       - "29 - Autonomous Coding & Data Science Agent from Scratch": case-studies/29-autonomous-coding-data-science-agent-from-scratch/README.md
+      - "30 - Multi-Agent Mesh Architecture (A2A Fabric)": case-studies/30-multi-agent-mesh-development-deployment-monitoring/README.md

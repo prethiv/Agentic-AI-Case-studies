@@ -10,7 +10,14 @@ echo " [pre-push] Running Documentation Build & Unit Test Suite"
 echo "=========================================================="
 echo ""
 
-python scripts/build_docs.py --build
+if command -v python >/dev/null 2>&1; then
+    python scripts/build_docs.py --build
+elif command -v py >/dev/null 2>&1; then
+    py scripts/build_docs.py --build
+else
+    echo "[pre-push ERROR] Neither 'python' nor 'py' executable found."
+    exit 1
+fi
 
 if [ $? -ne 0 ]; then
     echo ""
