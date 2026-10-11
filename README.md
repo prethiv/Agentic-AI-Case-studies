@@ -86,9 +86,12 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
     ├── 29-autonomous-coding-data-science-agent-from-scratch/ # Case Study 29: Autonomous Coding & Data Science Agent from Scratch
     │   ├── README.md                                     # First-principles architecture, dual-loop engine, sandboxing, verification & OSS playbook
     │   └── examples/                                     # Fully executable reference pipeline for SWE surgical editing & stateful DS kernel REPL
-    └── 30-multi-agent-mesh-development-deployment-monitoring/ # Case Study 30: Multi-Agent Mesh Architecture (A2A Fabric)
-        ├── README.md                                     # P2P intent routing, CNP auctions, cognitive sidecars, K8s CRDs, SPIFFE & OTel GenAI
-        └── examples/                                     # Fully executable reference implementation & automated unit test suite
+    ├── 30-multi-agent-mesh-development-deployment-monitoring/ # Case Study 30: Multi-Agent Mesh Architecture (A2A Fabric)
+    │   ├── README.md                                     # P2P intent routing, CNP auctions, cognitive sidecars, K8s CRDs, SPIFFE & OTel GenAI
+    │   └── examples/                                     # Fully executable reference implementation & automated unit test suite
+    └── 31-ambient-quality-agent-production-outer-loop/   # Case Study 31: Ambient Quality Engineering & Production Outer Loop (AQuA)
+        ├── README.md                                     # Out-of-band telemetry sweeps, 5-stage pipeline, snapshot AST line anchoring & coding agent replay
+        └── examples/                                     # Fully executable reference architecture, test suite & synthetic multi-agent telemetry
 ```
 
 ---
@@ -127,6 +130,7 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
 | **28** | [Modern LLM & Agent Training Lifecycles](case-studies/28-modern-llm-agent-training-lifecycle/README.md) | Multi-turn loss masking, DPO alignment, GRPO verifiable rewards & sandboxed tool grounding | 💡 Conceptualized |
 | **29** | [Autonomous Coding & Data Science Agent from Scratch](case-studies/29-autonomous-coding-data-science-agent-from-scratch/README.md) | First-principles modular dual-loop architecture, stateful Jupyter ZeroMQ REPL, AST surgical editing, observation compaction & open-source flywheel | 💡 Conceptualized |
 | **30** | [Multi-Agent Mesh Architecture: Development, Deployment & Monitoring](case-studies/30-multi-agent-mesh-development-deployment-monitoring/README.md) | Decentralized P2P cognitive fabric, Contract Net Protocol, cognitive sidecars, K8s CRDs, zero-trust Macaroons, and OTel GenAI DAG tracing | 💡 Conceptualized |
+| **31** | [Ambient Quality Engineering & Production Outer Loop](case-studies/31-ambient-quality-agent-production-outer-loop/README.md) | Out-of-band telemetry sweeps (AQuA), single-pass 9-point rubric, failure mechanism clustering, adversarial verification & code-anchored root-cause diagnosis | 💡 Conceptualized |
 ---
 
 ## 🧭 Upcoming Case Study Brainstorms
