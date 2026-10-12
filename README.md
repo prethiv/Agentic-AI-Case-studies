@@ -89,9 +89,12 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
     ├── 30-multi-agent-mesh-development-deployment-monitoring/ # Case Study 30: Multi-Agent Mesh Architecture (A2A Fabric)
     │   ├── README.md                                     # P2P intent routing, CNP auctions, cognitive sidecars, K8s CRDs, SPIFFE & OTel GenAI
     │   └── examples/                                     # Fully executable reference implementation & automated unit test suite
-    └── 31-ambient-quality-agent-production-outer-loop/   # Case Study 31: Ambient Quality Engineering & Production Outer Loop (AQuA)
-        ├── README.md                                     # Out-of-band telemetry sweeps, 5-stage pipeline, snapshot AST line anchoring & coding agent replay
-        └── examples/                                     # Fully executable reference architecture, test suite & synthetic multi-agent telemetry
+    ├── 31-ambient-quality-agent-production-outer-loop/   # Case Study 31: Ambient Quality Engineering & Production Outer Loop (AQuA)
+    │   ├── README.md                                     # Out-of-band telemetry sweeps, 5-stage pipeline, snapshot AST line anchoring & coding agent replay
+    │   └── examples/                                     # Fully executable reference architecture, test suite & synthetic multi-agent telemetry
+    └── 32-dual-stage-speculative-guardrails-policy-enforcement/ # Case Study 32: Dual-Stage Speculative Guardrails & Non-Blocking Policy Enforcement
+        ├── README.md                                     # Fast-path deterministic filtering (<15ms), speculative parallel tool execution, 2PC verification & risk gating
+        └── examples/                                     # Fully executable reference architecture & automated unit test suite
 ```
 
 ---
@@ -131,6 +134,7 @@ This repository catalogs **brainstorms and case study blueprints** focusing on i
 | **29** | [Autonomous Coding & Data Science Agent from Scratch](case-studies/29-autonomous-coding-data-science-agent-from-scratch/README.md) | First-principles modular dual-loop architecture, stateful Jupyter ZeroMQ REPL, AST surgical editing, observation compaction & open-source flywheel | 💡 Conceptualized |
 | **30** | [Multi-Agent Mesh Architecture: Development, Deployment & Monitoring](case-studies/30-multi-agent-mesh-development-deployment-monitoring/README.md) | Decentralized P2P cognitive fabric, Contract Net Protocol, cognitive sidecars, K8s CRDs, zero-trust Macaroons, and OTel GenAI DAG tracing | 💡 Conceptualized |
 | **31** | [Ambient Quality Engineering & Production Outer Loop](case-studies/31-ambient-quality-agent-production-outer-loop/README.md) | Out-of-band telemetry sweeps (AQuA), single-pass 9-point rubric, failure mechanism clustering, adversarial verification & code-anchored root-cause diagnosis | 💡 Conceptualized |
+| **32** | [Dual-Stage Speculative Guardrails & Non-Blocking Policy Enforcement](case-studies/32-dual-stage-speculative-guardrails-policy-enforcement/README.md) | Fast-path deterministic filtering (<15ms), speculative parallel tool execution, two-phase commit verification, and risk-stratified policy gating | 💡 Conceptualized |
 ---
 
 ## 🧭 Upcoming Case Study Brainstorms
